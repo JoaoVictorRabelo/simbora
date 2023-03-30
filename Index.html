@@ -5,18 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simbora</title>
-    <link rel="shortcut icon" href="IMG/Logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="IMG/Logo.png"  width="100%" height="100%" type="image/x-icon">
     
     <link rel="stylesheet" href="/CSS/style.css">
     <link rel="stylesheet" href="/CSS/bootstrap.min.css">  
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
-<body>
+<body> 
     <!-- Começo da Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid bg-success">
           <a class="navbar-brand" href="#"></a>
-          <img src="IMG/Logo.png" alt="Logo" width="80" height="80" class="d-inline-block align-text-top">
+          <img src="IMG/Logo.png" alt="Logo" width="100" height="100" class="d-inline-block align-text-top">
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -37,94 +37,112 @@
                   <li><a class="dropdown-item" href="#">Igrejas</a></li>
                   <li><a class="dropdown-item" href="#">Gastronômico</a></li>
                   <li><a class="dropdown-item" href="#">Baladas</a></li>
-                </ul>
+                </ul>  
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
               </li>
+                <form class="d-flex"> 
+                </form>
             </ul>
+        </ul>
             <form class="d-flex">
               <input class="form-control me-2" type="search" placeholder="Pesquisar evento" aria-label="Search">
               <button class="btn btn-outline-light" type="submit">Pesquisar</button>
+
+              <a class="nav-link active" href="Longin.html">Entrar</a>
             </form>
           </div>
+          <a class="nav-link active" href="Inscrever.html">Inscrever</a>
         </div>
       </nav>
     <!-- Fim da Navbar -->
 
     <!-- Começo do Carousel -->
-    <div class="container-xxl">
-      <div class="row justify-content-center">
-        <div class="col-12"> </div>
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <main>
+
+      <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="IMG/SERTANEJO.png" alt="Chania" style="height: 650px;">
+           <img src="IMG/SERTANEJO.png" width="100%" height="100%" style="height: 650px;">
+            <div class="container">
+              <div class="carousel-caption text-start">
+              </div>
+            </div>
           </div>
           <div class="carousel-item">
-            <img src="IMG/EventoInfantil.png" alt="Chania" style="height: 650px;">
+           <img src="IMG/EventoInfantil.png" width="100%" height="100%" style="height: 650px;">
+    
+            <div class="container">
+              <div class="carousel-caption">
+              </div>
+            </div>
           </div>
           <div class="carousel-item">
-            <img src="https://www.saboravida.com.br/wp-content/uploads/2021/08/festival-gastronomico-sabores-da-terra-comeca-dia-23-de-agosto-em-indaiatuba-1.jpg" alt="Chania" style="height: 650px;">
+           <img src="IMG/COMIDA.png" width="100%" height="100%" style="height: 650px;">
+            <div class="container">
+              <div class="carousel-caption text-end">
+              </div>
+            </div>
           </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
-      </div>  
+      </div>
       <!-- Fim do Carousel -->
 
       <!-- Começo do Card -->   
-      <conteiner class="conteiner m-5">
+      <conteiner class="conteiner m-2">
          <div class="row justify-content-md-center">      
-          <div class="card-body m-5" style="width: 18rem;">
+          <div class="card-img-top" style="width: 18rem;">
             <img src="IMG/Igrejaaa.png" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">Religioso</h5>
-              <p class="card-text">Gostaríamos de convidá-lo(a) para conferir os eventos que estão disponível na plataforma.</p>
+              <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para cultos, congresso, culto de jovens e muito mais.</p>
               <a href="#" class="btn btn-primary">Ver mais</a>
             </div>
           </div>
-          <div class="card-body m-5" style="width: 18rem;">
-            <img src="IMG/balada.png" class="card-img-top" alt="...">
+          <div class="card-img-top" style="width: 18rem;">
+            <img src="IMG/cinemah.png" class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title">Balada</h5>
-              <p class="card-text">Temos o prazer de convidá-lo(a) para conferir os eventosque estão disponível na plataforma e será uma noite de muita diversão, música boa e dança até o amanhecer!.</p>
+              <h5 class="card-title">Cinema</h5>
+              <p class="card-text">Venha conferir os filmes incríveis que estão em cartaz no cinema. Temos opções para todos os gostos, desde as comédias até os dramas mais emocionantes.</p>
               <a href="#" class="btn btn-primary">Ver mais</a>
             </div>
           </div>
-          <div class="card-body m-5" style="width: 18rem;">
+          <div class="card-img-top" style="width: 18rem;">
             <img src="IMG/TEATRO.png" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">Teatro</h5>
-              <p class="card-text">É com grande satisfação que convidamos você para conferir as peças de teatro que estão disponível na plataforma. Não perca esta oportunidade de vivenciar a magia do teatro e se emocionar com as histórias contadas em nosso palco!</p>
+              <p class="card-text">Venha conferir as peças incríveis que estão em cartaz no teatro. Temos opções para todos os gostos, desde as comédias até os dramas mais emocionantes. </p>
               <a href="#" class="btn btn-primary">Ver mais</a>
             </div>
           </div>
+            <div class="card-img-top" style="width: 18rem;">
+              <img src="IMG/balada.png" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Balada</h5>
+                <p class="card-text">Venha conferir os eventos noturnos que estão disponível na plataforma. E será uma noite de muita diversão, música boa e dança até o amanhecer!<p>
+                <a href="#" class="btn btn-primary">Ver mais</a>
+              </div>
+            </div>
         </div>
-        <div class="card-body m-5" style="width: 18rem;">
-          <img src="IMG/TEATRO.png" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Teatro</h5>
-            <p class="card-text">É com grande satisfação que convidamos você para conferir as peças de teatro que estão disponível na plataforma. Não perca esta oportunidade de vivenciar a magia do teatro e se emocionar com as histórias contadas em nosso palco!</p>
-            <a href="#" class="btn btn-primary">Ver mais</a>
-          </div>
-        </div>
-      </div>
     <!-- Fim dos Card -->
 
     <!-- Começo do footer-->
+    
     <div class="container">
+      <div class="row justify-content-center"></div>
       <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         <p class="col-md-4 mb-0 text-muted">&copy; 2021-2023 Eventos, Inc</p>
     
@@ -135,9 +153,11 @@
         <ul class="nav col-md-4 justify-content-end">
           <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Privacidade</a></li>
           <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Termos</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Suporte</a></li>
         </ul>
       </footer>
     <!-- Fim do footer-->
+    
     
     <script src="JS/jquery-3.6.0.min.js"></script>
     <script src="JS/bootstrap.min.js"></script>
