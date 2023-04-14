@@ -1,14 +1,24 @@
-
 img {
-    display: block;
-    margin: 0 auto;  
+  display: block;
+  margin: 0 auto;
 
 }
+
 .imagem-centralizada {
-    display: block;
-    margin: 0 auto;
-  }
+  display: block;
+  margin: 0 auto;
+}
 
 .title {
   text-align: center;
+}
+
+.image-backgroud {
+  display: flex;
+  position: relative;
+  z-index: -100;
+}
+
+#footer {
+  height: 50px; /* the footer's total height */
 }
