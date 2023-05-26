@@ -17,10 +17,7 @@
 
   <link rel="stylesheet" href="	https://use.fontawesome.com/releases/v5.7.2/css/all.css">
 
-  <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&display=swap" rel="stylesheet"> -->
-
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
@@ -33,10 +30,42 @@
   <style>
 
   </style>
+  <script>
+    function login() {
+      var email = document.getElementById('email').value;
+      var senha = document.getElementById('senha').value;
+
+      axios.post('http://localhost:3000/api/auth/login', {
+        email: email,
+        senha: senha
+      })
+        .then(function (response) {
+
+          localStorage.setItem('nome', response.data.nome);
+          localStorage.setItem('email', response.data.email);
+          localStorage.setItem('senha', response.data.senha);
+          localStorage.setItem('nivelAcesso', response.data.nivelAcesso);
+          localStorage.setItem('imagem', 'http://localhost:3000/uploads/' + response.data.imagem);
+          localStorage.setItem('cpf_cnpj', response.data.cpf_cnpj);
+          localStorage.setItem('telefone', response.data.telefone);
+
+          window.location.href = "/pages/logged/Index.html"
+        })
+        .catch(function (error) {
+          console.error(error);
+          if (error.response.status === 404) {
+            document.getElementById('emailInput').classList.add('input-field-error');
+          } else {
+            document.getElementById('passwordInput').classList.add('input-field-error');
+
+          }
+        });
+    }
+  </script>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #198754; height: 4rem;">
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #198754; height: 7rem;">
     <div class="container-fluid">
       <a href="/Index.html">
         <img src="assets/img/Logo.png" alt="Logo" width="120" class="d-inline-block align-text-top mx-5">
@@ -80,12 +109,13 @@
           <div class="h2 text-center">Login</div>
           <form class="pt-3">
             <div class="form-group py-2">
-              <div class="input-field"> <span class="far fa-user p-2"></span> <input type="text"
-                  placeholder="Username ou Email" required class=""> </div>
+              <div class="input-field" id="emailInput"> <span class="far fa-user p-2"></span> <input type="email"
+                  placeholder="Email" id="email" required class=""> </div>
             </div>
             <div class="form-group py-1 pb-2">
-              <div class="input-field"> <span class="fas fa-lock p-2"></span> <input type="text" placeholder="Senha"
-                  required class=""> <button class="btn bg-white text-muted"> <span class="far fa-eye-slash"></span>
+              <div class="input-field" id="passwordInput"> <span class="fas fa-lock p-2"></span> <input type="text"
+                  placeholder="Senha" id="senha" required class=""> <button class="btn bg-white text-muted"> <span
+                    class="far fa-eye-slash"></span>
                 </button> </div>
             </div>
             <div class="d-flex justify-content-between">
@@ -94,9 +124,7 @@
               <div class="ml-auto"> <a href="#" class="text-decoration-none" id="forgot">Esqueceu a senha?</a> </div>
             </div>
             <div class="text-center pt-3 text-muted">
-              <a href="/pages/logged/Index.html">
-                <button type="button" class="btn btn-block text-center my-3">Entrar</button>
-              </a>
+              <button type="button" onclick="login()" class="btn btn-block text-center my-3">Entrar</button>
             </div>
             <div class="text-center pt-3 text-muted">Não tem conta? <a href="#myModalCadastro"
                 class="trigger-btn text-decoration-none" data-toggle="modal"> Inscrever-se</a></div>
@@ -115,19 +143,20 @@
           <form class="pt-3 text-center">
             <div class="form-group py-2">
               <div class="input-field"> <span class="far fa-user p-2"></span> <input type="text" placeholder="Nome"
-                  required class=""> </div>
+                  required id="nomeCadastro" class=""> </div>
             </div>
             <div class="form-group py-2">
               <div class="input-field"> <span class="far fa-user p-2"></span> <input type="text" placeholder="Sobrenome"
-                  required class=""> </div>
+                  required id="sobrenomeCadastro" class=""> </div>
             </div>
             <div class="form-group py-1 pb-2">
-              <div class="input-field"> <span class="far fa-envelope p-2"></span> <input type="text" placeholder="Email"
-                  required class=""> </div>
+              <div class="input-field"> <span class="far fa-envelope p-2"></span> <input type="email"
+                  placeholder="Email" required id="emailCadastro" class=""> </div>
             </div>
             <div class="form-group py-1 pb-2">
               <div class="input-field"> <span class="fas fa-lock p-2"></span> <input type="password" placeholder="Senha"
-                  required class=""> <button class="btn bg-white text-muted"> <span class="far fa-eye-slash"></span>
+                  required id="senhaCadastro" class=""> <button class="btn bg-white text-muted"> <span
+                    class="far fa-eye-slash"></span>
                 </button> </div>
             </div>
             <div class="d-flex align-items-start">
@@ -136,9 +165,9 @@
                     name="checkbox"> <span class="checkmark"></span> </label>
               </div>
             </div>
-            <a href="/pages/logged/Index.html">
-              <button type="button" class="btn btn-block text-center my-3">Cadastrar</button>
-            </a>
+            <!-- <a href="/pages/logged/Index.html"> -->
+            <button type="submit" onclick="cadastro()" class="btn btn-block text-center my-3">Cadastrar</button>
+            <!-- </a> -->
           </form>
         </div>
       </div>
@@ -563,7 +592,42 @@
   </footer>
   <!-- End Footer -->
 
+  <script>
+    function cadastro() {
 
+      var email = document.getElementById('emailCadastro').value;
+      var senha = document.getElementById('senhaCadastro').value;
+      var nome = document.getElementById('nomeCadastro').value;
+      // var nome = document.getElementById('nomeCadastro').value;
+
+
+      if (email !== null && senha !== null && nome !== null) {
+
+        axios.post('http://localhost:3000/api/users', {
+          nome: nome,
+          email: email,
+          senha: senha,
+          nivelAcesso: "646e9089daa015d12e6b3648"
+        })
+          .then(function (response) {
+
+            localStorage.setItem('nome', response.data.nome);
+            localStorage.setItem('email', response.data.email);
+            localStorage.setItem('senha', response.data.senha);
+            localStorage.setItem('nivelAcesso', response.data.nivelAcesso);
+            localStorage.setItem('imagem', 'http://localhost:3000/uploads/' + response.data.imagem);
+            localStorage.setItem('cpf_cnpj', response.data.cpf_cnpj);
+            localStorage.setItem('telefone', response.data.telefone);
+
+            window.location.href = "/pages/logged/Index.html"
+          })
+          .catch(function (error) {
+            console.error(error);
+          });
+
+      }
+    }
+  </script>
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
