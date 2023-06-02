@@ -490,3 +490,22 @@ section {
 #footer .credits {
   font-size: 13px;
 }
+
+.input-field-error {
+  border-color: red;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  background: #007bff;
+  color: #fff;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  padding: 12px;
+  font-size: 20px;
+}
+
+.custom-file-upload:hover {
+  background: #0056b3;
+}

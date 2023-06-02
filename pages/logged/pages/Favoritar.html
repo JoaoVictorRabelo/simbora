@@ -56,12 +56,11 @@
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <img src="https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png"
-                                            width="60" height="60" class="rounded-circle"
+                                        <img id="userImageIcon" src="" width="60" height="60" class="rounded-circle"
                                             style="background-color: #FD7E14; padding: 0px;">
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="/Index.html">Sair</a>
+                                        <a class="dropdown-item" onclick="logout()">Sair</a>
                                     </div>
                                 </li>
                             </ul>
@@ -246,7 +245,19 @@
 
     <!-- End Footer -->
 
+    <script>
 
+        var imageUser = localStorage.getItem('imagem');
+        var imagemIcon = document.getElementById('userImageIcon');
+
+        imagemIcon.src = imageUser
+
+        function logout() {
+            localStorage.clear();
+            window.location.href = "/Index.html"
+        }
+
+    </script>
     <!-- Vendor JS Files -->
     <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>

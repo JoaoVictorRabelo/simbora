@@ -21,6 +21,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&display=swap" rel="stylesheet"> -->
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 
     <!-- Vendor CSS Files -->
     <link href="/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
@@ -30,9 +32,11 @@
     <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
     <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-    <style>
-
-    </style>
+    <script>
+        window.onload = function () {
+            getUsuario();
+        };
+    </script>
 </head>
 
 <body>
@@ -56,12 +60,11 @@
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <img src="https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png"
-                                            width="60" height="60" class="rounded-circle"
+                                        <img id="userImageIcon" src="" width="60" height="60" class="rounded-circle"
                                             style="background-color: #FD7E14; padding: 0px;">
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="/Index.html">Sair</a>
+                                        <a class="dropdown-item" onclick="logout()">Sair</a>
                                     </div>
                                 </li>
                             </ul>
@@ -73,60 +76,69 @@
     </nav>
     <!-- Fim da Navbar -->
 
-    <div class="row justify-content-center">
-        <div class="col-md-3">
-            <div class="mb-4 justify-content-center" style="margin-top: 10rem;">
-                <div class="image d-flex flex-column justify-content-center align-items-center">
-                    <img src="https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png"
-                        width="200" height="200" class="rounded-circle"
-                        style="background-color: #FD7E14; padding: 0px;">
-                    <div class="form-outline w-75 mb-4">
-                        <label class="form-label h4" for="form3Example1">Nome</label>
-                        <div class="row">
-                            <div class="col-md-10">
-                                <input type="text" id="form3Example1" class="form-control h3"
-                                    style="background-color: #DFDFDF;" value="Gabriel Silva" />
-                            </div>
-                            <div class="col-md-2">
-                            </div>
 
+    <div id="modalAlert" class="alert alert-success alert-dismissible fade"
+        style="position:fixed; margin-top: 10rem; margin-left: 2rem;">
+        <strong>Sucesso!</strong> <span id="messageSpan"></span>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-3">
+                <div class="justify-content-center text-center" style="margin-top: 10rem;">
+                    <div class="image d-flex flex-column justify-content-center align-items-center">
+                        <div class="d-flex flex-row align-items-center gap-2">
+                            <div>
+                                <img id="imagem-input" src="" width="200" height="200" class="rounded-circle"
+                                    style="background-color: #FD7E14; padding: 0px;">
+                            </div>
+                            <div>
+                                <label for="fileInput" class="custom-file-upload">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </label>
+                                <input type="file" accept="image/*" id="fileInput" style="display: none;">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-outline w-75 mb-4">
-                        <label class="form-label h4" for="form3Example1">E-mail</label>
-                        <div class="row">
-                            <div class="col-md-10">
-                                <input type="text" id="form3Example1" class="form-control h3"
-                                    style="background-color: #DFDFDF;" value="gabriel_silva@email.com" />
-                            </div>
-                            <div class="col-md-2">
+                        <div class="form-outline w-100 mb-4 mt-4">
+                            <label class="form-label h4" for="nome-input">Nome</label>
+                            <div>
+                                <input type="text" id="nome-input" class="form-control h3"
+                                    style="background-color: #DFDFDF;" value="" />
                             </div>
                         </div>
-                    </div>
-                    <div class="form-outline w-75 mb-4">
-                        <label class="form-label h4" for="form3Example1">Senha</label>
-                        <div class="row">
-                            <div class="col-md-10">
-                                <input type="password" id="form3Example1" class="form-control h3"
-                                    style="background-color: #DFDFDF;" value="AEmN8b5GIZ" />
+                        <div class="form-outline w-100 mb-4">
+                            <label class="form-label h4" for="email-input">E-mail</label>
+                            <div>
+                                <input type="text" id="email-input" class="form-control h3"
+                                    style="background-color: #DFDFDF;" value="" />
                             </div>
-                            <div class="col-md-2">
+                        </div>
+                        <div class="form-outline w-100 mb-4">
+                            <label class="form-label h4" for="senha-input">Senha</label>
+                            <div>
+                                <input type="text" id="senha-input" class="form-control h3"
+                                    style="background-color: #DFDFDF;" value="" />
                             </div>
-                            <div class="modal-footer">
-                                
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                <li class="nav-item mx">
-                                </li>
-                                <button type="button" class="btn btn-primary">Salvar mudanças</button>
-                                <li class="nav-item mx"></li>
-                              </div>
+                        </div>
+                        <div class="form-outline w-100 mb-4">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <a href="/pages/logged/Index.html">
+                                        <button type="button" class="btn btn-secondary mr-auto">Fechar</button>
+                                    </a>
+                                </div>
+                                <div>
+                                    <button type="button" onclick="updateUsuario()"
+                                        class="btn btn-primary ml-auto">Salvar mudanças</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-         </div>
-     </div>
- </div>
+        </div>
+    </div>
+
     <!-- ======= Footer ======= -->
 
     <footer id="footer">
@@ -146,7 +158,124 @@
     </footer>
     <!-- End Footer -->
 
+    <script>
 
+        function logout() {
+            localStorage.clear();
+            window.location.href = "/Index.html"
+        }
+
+        function getUsuario() {
+            var userId = localStorage.getItem('id');
+
+            axios.get('http://localhost:3000/api/users/' + userId)
+                .then(function (response) {
+                    localStorage.setItem('nome', response.data.nome);
+                    localStorage.setItem('email', response.data.email);
+                    localStorage.setItem('senha', response.data.senha);
+                    localStorage.setItem('AccessLevel', response.data.AccessLevel);
+                    localStorage.setItem('imagem', response.data.imagem !== null ? 'http://localhost:3000/uploads/' + response.data.imagem : 'https://digimedia.web.ua.pt/wp-content/uploads/2017/05/default-user-image.png');
+                    localStorage.setItem('cpf_cnpj', response.data.cpf_cnpj);
+                    localStorage.setItem('telefone', response.data.telefone);
+
+                    var imagemInput = document.getElementById('imagem-input');
+                    var imagemIcon = document.getElementById('userImageIcon');
+                    var nomeInput = document.getElementById('nome-input');
+                    var emailInput = document.getElementById('email-input');
+                    var senhaInput = document.getElementById('senha-input');
+
+                    imagemInput.src = response.data.imagem !== null ? 'http://localhost:3000/uploads/' + response.data.imagem : 'https://digimedia.web.ua.pt/wp-content/uploads/2017/05/default-user-image.png';
+                    imagemIcon.src = response.data.imagem !== null ? 'http://localhost:3000/uploads/' + response.data.imagem : 'https://digimedia.web.ua.pt/wp-content/uploads/2017/05/default-user-image.png';
+                    nomeInput.value = response.data.nome;
+                    emailInput.value = response.data.email;
+                    senhaInput.value = response.data.senha;
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+        }
+
+        function updateUsuario() {
+
+            // var imagemInput = document.getElementById('imagem-input').value;
+            // Obtém o arquivo selecionado pelo usuário
+            var file = document.getElementById('fileInput').files[0];
+            var nomeInput = document.getElementById('nome-input').value;
+            var emailInput = document.getElementById('email-input').value;
+            var senhaInput = document.getElementById('senha-input').value;
+
+            userId = localStorage.getItem('id');
+
+            // var nome = document.getElementById('nomeCadastro').value;
+
+
+            if (emailInput !== null && senhaInput !== null && nomeInput !== null) {
+                var formData = new FormData(); // Cria um objeto FormData para enviar o arquivo
+
+                formData.append('imagem', file);
+                formData.append('nome', nomeInput);
+                formData.append('email', emailInput);
+                formData.append('senha', senhaInput);
+
+                axios.put('http://localhost:3000/api/users/' + userId, formData)
+                    .then(function (response) {
+                        exibirAlertDialog('Usuario editado!');
+                        localStorage.setItem('nome', response.data.nome);
+                        localStorage.setItem('email', response.data.email);
+                        localStorage.setItem('senha', response.data.senha);
+                        localStorage.setItem('AccessLevel', response.data.AccessLevel);
+                        localStorage.setItem('imagem', response.data.imagem !== null ? 'http://localhost:3000/uploads/' + response.data.imagem : 'https://digimedia.web.ua.pt/wp-content/uploads/2017/05/default-user-image.png');
+                        localStorage.setItem('cpf_cnpj', response.data.cpf_cnpj);
+                        localStorage.setItem('telefone', response.data.telefone);
+
+                        var imagemInput = document.getElementById('imagem-input');
+                        var imagemIcon = document.getElementById('userImageIcon');
+                        var nomeInput = document.getElementById('nome-input');
+                        var emailInput = document.getElementById('email-input');
+                        var senhaInput = document.getElementById('senha-input');
+
+                        imagemInput.src = response.data.imagem !== null ? 'http://localhost:3000/uploads/' + response.data.imagem : 'https://digimedia.web.ua.pt/wp-content/uploads/2017/05/default-user-image.png';
+                        imagemIcon.src = response.data.imagem !== null ? 'http://localhost:3000/uploads/' + response.data.imagem : 'https://digimedia.web.ua.pt/wp-content/uploads/2017/05/default-user-image.png';
+                        nomeInput.value = response.data.nome;
+                        emailInput.value = response.data.email;
+                        senhaInput.value = response.data.senha;
+                    })
+                    .catch(function (error) {
+                        console.error(error);
+                    });
+
+            }
+        }
+
+        function exibirAlertDialog(mensagem) {
+            var modalAlert = document.getElementById('modalAlert');
+            var messageSpan = document.getElementById('messageSpan');
+
+            modalAlert.className = 'alert alert-success alert-dismissible fade show';
+            messageSpan.textContent = mensagem ?? '';
+
+
+            setTimeout(function () {
+                modalAlert.className = 'alert alert-success alert-dismissible fade';
+            }, 5000);
+        }
+
+        document.getElementById('fileInput').addEventListener('change', function (e) {
+            var file = e.target.files[0];
+            var previewImage = document.getElementById('imagem-input');
+
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                previewImage.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function logout() {
+            localStorage.clear();
+            window.location.href = "/Index.html"
+        }
+    </script>
     <!-- Vendor JS Files -->
     <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
@@ -156,6 +285,8 @@
     <script src="/assets/js/bootstrap.min.js"></script>
     <script src="/assets/js/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 
 
     <script src="/assets/js/main.js"></script>

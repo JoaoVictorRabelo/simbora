@@ -31,36 +31,7 @@
 
   </style>
   <script>
-    function login() {
-      var email = document.getElementById('email').value;
-      var senha = document.getElementById('senha').value;
 
-      axios.post('http://localhost:3000/api/auth/login', {
-        email: email,
-        senha: senha
-      })
-        .then(function (response) {
-
-          localStorage.setItem('nome', response.data.nome);
-          localStorage.setItem('email', response.data.email);
-          localStorage.setItem('senha', response.data.senha);
-          localStorage.setItem('nivelAcesso', response.data.nivelAcesso);
-          localStorage.setItem('imagem', 'http://localhost:3000/uploads/' + response.data.imagem);
-          localStorage.setItem('cpf_cnpj', response.data.cpf_cnpj);
-          localStorage.setItem('telefone', response.data.telefone);
-
-          window.location.href = "/pages/logged/Index.html"
-        })
-        .catch(function (error) {
-          console.error(error);
-          if (error.response.status === 404) {
-            document.getElementById('emailInput').classList.add('input-field-error');
-          } else {
-            document.getElementById('passwordInput').classList.add('input-field-error');
-
-          }
-        });
-    }
   </script>
 </head>
 
@@ -114,7 +85,7 @@
             </div>
             <div class="form-group py-1 pb-2">
               <div class="input-field" id="passwordInput"> <span class="fas fa-lock p-2"></span> <input type="text"
-                  placeholder="Senha" id="senha" required class=""> <button class="btn bg-white text-muted"> <span
+                  placeholder="Senha" id="senha" required class=""> <button type="button" class="btn bg-white text-muted"> <span
                     class="far fa-eye-slash"></span>
                 </button> </div>
             </div>
@@ -593,6 +564,40 @@
   <!-- End Footer -->
 
   <script>
+        function login() {
+      var email = document.getElementById('email').value;
+      var senha = document.getElementById('senha').value;
+
+      axios.post('http://localhost:3000/api/auth/login', {
+        email: email,
+        senha: senha
+      })
+        .then(function (response) {
+          localStorage.setItem('id', response.data._id);
+          localStorage.setItem('nome', response.data.nome);
+          localStorage.setItem('email', response.data.email);
+          localStorage.setItem('senha', response.data.senha);
+          localStorage.setItem('AccessLevel', response.data.AccessLevel);
+          localStorage.setItem('imagem', response.data.imagem !== null ? 'http://localhost:3000/uploads/' + response.data.imagem : 'https://digimedia.web.ua.pt/wp-content/uploads/2017/05/default-user-image.png');
+          localStorage.setItem('cpf_cnpj', response.data.cpf_cnpj);
+          localStorage.setItem('telefone', response.data.telefone);
+
+          window.location.href = "/pages/logged/Index.html"
+        })
+        .catch(function (error) {
+          console.error(error);
+          if (error.response.status === 404) {
+            document.getElementById('emailInput').classList.add('input-field-error');
+            document.getElementById('passwordInput').classList.remove('input-field-error');
+
+          } else {
+            document.getElementById('passwordInput').classList.add('input-field-error');
+            document.getElementById('emailInput').classList.remove('input-field-error');
+
+          }
+        });
+    }
+
     function cadastro() {
 
       var email = document.getElementById('emailCadastro').value;
@@ -607,14 +612,14 @@
           nome: nome,
           email: email,
           senha: senha,
-          nivelAcesso: "646e9089daa015d12e6b3648"
+          // AccessLevel: "646e9089daa015d12e6b3648"
         })
           .then(function (response) {
-
+            localStorage.setItem('id', response.data.id);
             localStorage.setItem('nome', response.data.nome);
             localStorage.setItem('email', response.data.email);
             localStorage.setItem('senha', response.data.senha);
-            localStorage.setItem('nivelAcesso', response.data.nivelAcesso);
+            localStorage.setItem('AccessLevel', response.data.AccessLevel);
             localStorage.setItem('imagem', 'http://localhost:3000/uploads/' + response.data.imagem);
             localStorage.setItem('cpf_cnpj', response.data.cpf_cnpj);
             localStorage.setItem('telefone', response.data.telefone);
