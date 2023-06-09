@@ -85,8 +85,8 @@
             </div>
             <div class="form-group py-1 pb-2">
               <div class="input-field" id="passwordInput"> <span class="fas fa-lock p-2"></span> <input type="text"
-                  placeholder="Senha" id="senha" required class=""> <button type="button" class="btn bg-white text-muted"> <span
-                    class="far fa-eye-slash"></span>
+                  placeholder="Senha" id="senha" required class=""> <button type="button"
+                  class="btn bg-white text-muted"> <span class="far fa-eye-slash"></span>
                 </button> </div>
             </div>
             <div class="d-flex justify-content-between">
@@ -154,12 +154,12 @@
             <li class="nav-item" role="presentation">
               <button class="nav-link mx-2 active" id="pills-home-tab" data-bs-toggle="pill"
                 data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
-                aria-selected="true">Entrar</button>
+                aria-selected="true">Login</button>
             </li>
             <li class="nav-item" role="presentation">
               <button class="nav-link  mx-2" id="pills-profile-tab" data-bs-toggle="pill"
                 data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
-                aria-selected="false">Inscrever-se</button>
+                aria-selected="false">Cadastro</button>
             </li>
           </ul>
           <div class="tab-content" id="pills-tabContent">
@@ -167,12 +167,12 @@
               <div class="h2 text-center">Login</div>
               <form class="pt-3">
                 <div class="form-group py-2">
-                  <div class="input-field"> <span class="far fa-user p-2"></span> <input type="text"
-                      placeholder="Username ou Email" required class=""> </div>
+                  <div class="input-field-email-produtor"> <span class="far fa-user p-2"></span> <input type="text"
+                      placeholder="Username ou Email" id="email-produtor" required class=""> </div>
                 </div>
                 <div class="form-group py-1 pb-2">
-                  <div class="input-field"> <span class="fas fa-lock p-2"></span> <input type="text" placeholder="Senha"
-                      required class=""> <button class="btn bg-white text-muted"> <span class="far fa-eye-slash"></span>
+                  <div class="input-field-senha-produtor"> <span class="fas fa-lock p-2"></span> <input type="text" placeholder="Senha"
+                      required class="" id="senha-produtor"> <button class="btn bg-white text-muted"> <span class="far fa-eye-slash"></span>
                     </button> </div>
                 </div>
                 <div class="d-flex justify-content-between">
@@ -182,9 +182,7 @@
                   </div>
                 </div>
                 <div class="text-center pt-3 text-muted">
-                  <a href="pages/produtor/HomeProdutor.html">
-                    <button type="button" class="btn btn-block text-center my-3">Entrar</button>
-                  </a>
+                    <button type="button" onclick="loginProdutor()" class="btn btn-block text-center my-3">Entrar</button>
                 </div>
               </form>
             </div>
@@ -251,9 +249,7 @@
                   </label>
                 </div>
                 <!-- button -->
-                <a href="pages/produtor/HomeProdutor.html">
-                  <button type="button" class="btn btn-block text-center my-3">Cadastrar</button>
-                </a>
+                  <button type="button" onclick="" class="btn btn-block text-center my-3">Cadastrar</button>
               </form>
             </div>
           </div>
@@ -442,111 +438,6 @@
     </div>
   </section><!-- End Filmes Section -->
 
-
-
-  <!-- <div class="">
-    <div class="container row justify-content-center mb-3">
-      <div class="col-md-7">
-        <h1 class="mb-6">
-          Categorias
-        </h1>
-      </div>
-    </div>
-
-    <div class="secound-slider">
-      <section class="regular slider">
-        <div>
-          <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-            <img class="card-img-top" src="IMG/Igrejaaa.png"
-              style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-              alt="Imagem de capa do card">
-            <div class="card-body">
-              <h5 class="card-title">Religioso</h5>
-              <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                cultos,
-                congresso, culto de jovens e muito mais.</p>
-              <a href="#" class="btn btn-primary mt-4">Ver mais</a>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-            <img class="card-img-top" src="IMG/cinemah.png"
-              style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-              alt="Imagem de capa do card">
-            <div class="card-body">
-              <h5 class="card-title">Cinema</h5>
-              <p class="card-text">Venha conferir os filmes incríveis que estão em cartaz no cinema. Temos opções
-                para
-                todos
-                os gostos, desde as comédias até os dramas mais emocionantes.</p>
-              <a href="CategoriaDoCinema.html" class="btn btn-primary">Ver mais</a>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-            <img class="card-img-top" src="IMG/TEATRO.png"
-              style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-              alt="Imagem de capa do card">
-            <div class="card-body">
-              <h5 class="card-title">Teatro</h5>
-              <p class="card-text">Venha conferir as peças incríveis que estão em cartaz no teatro. Temos opções
-                para
-                todos
-                os gostos, desde as comédias até os dramas mais emocionantes. </p>
-              <a href="#" class="btn btn-primary">Ver mais</a>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-            <img class="card-img-top" src="IMG/balada.png"
-              style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-              alt="Imagem de capa do card">
-            <div class="card-body">
-              <h5 class="card-title">Shows</h5>
-              <p class="card-text">Venha conferir os eventos noturnos que estão disponível na plataforma. E será uma
-                noite
-                de muita diversão, música boa e dança até o amanhecer!
-              <p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-            <img class="card-img-top" src="IMG/Igrejaaa.png"
-              style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-              alt="Imagem de capa do card">
-            <div class="card-body">
-              <h5 class="card-title">Religioso</h5>
-              <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                cultos,
-                congresso, culto de jovens e muito mais.</p>
-              <a href="#" class="btn btn-primary mt-4">Ver mais</a>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-            <img class="card-img-top" src="IMG/cinemah.png"
-              style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-              alt="Imagem de capa do card">
-            <div class="card-body">
-              <h5 class="card-title">Cinema</h5>
-              <p class="card-text">Venha conferir os filmes incríveis que estão em cartaz no cinema. Temos opções
-                para
-                todos
-                os gostos, desde as comédias até os dramas mais emocionantes.</p>
-              <a href="CategoriaDoCinema.html" class="btn btn-primary">Ver mais</a>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  </div> -->
-
   <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="container">
@@ -564,7 +455,7 @@
   <!-- End Footer -->
 
   <script>
-        function login() {
+    function login() {
       var email = document.getElementById('email').value;
       var senha = document.getElementById('senha').value;
 
@@ -598,6 +489,40 @@
         });
     }
 
+    function loginProdutor() {
+      var email = document.getElementById('email-produtor').value;
+      var senha = document.getElementById('senha-produtor').value;
+
+      axios.post('http://localhost:3000/api/auth/login-produtor', {
+        email: email,
+        senha: senha
+      })
+        .then(function (response) {
+          localStorage.setItem('id', response.data._id);
+          localStorage.setItem('nome', response.data.nome);
+          localStorage.setItem('email', response.data.email);
+          localStorage.setItem('senha', response.data.senha);
+          localStorage.setItem('AccessLevel', response.data.AccessLevel);
+          localStorage.setItem('imagem', response.data.imagem !== null ? 'http://localhost:3000/uploads/' + response.data.imagem : 'https://digimedia.web.ua.pt/wp-content/uploads/2017/05/default-user-image.png');
+          localStorage.setItem('cpf_cnpj', response.data.cpf_cnpj);
+          localStorage.setItem('telefone', response.data.telefone);
+
+          window.location.href = "pages/produtor/HomeProdutor.html"
+        })
+        .catch(function (error) {
+          console.error(error);
+          if (error.response.status === 404) {
+            document.getElementById('input-field-email-produtor').classList.add('input-field-error');
+            document.getElementById('input-field-senha-produtor').classList.remove('input-field-error');
+
+          } else {
+            document.getElementById('input-field-senha-produtor').classList.add('input-field-error');
+            document.getElementById('input-field-email-produtor').classList.remove('input-field-error');
+
+          }
+        });
+    }
+
     function cadastro() {
 
       var email = document.getElementById('emailCadastro').value;
@@ -620,7 +545,7 @@
             localStorage.setItem('email', response.data.email);
             localStorage.setItem('senha', response.data.senha);
             localStorage.setItem('AccessLevel', response.data.AccessLevel);
-            localStorage.setItem('imagem', 'http://localhost:3000/uploads/' + response.data.imagem);
+            localStorage.setItem('imagem', response.data.imagem !== null ? 'http://localhost:3000/uploads/' + response.data.imagem : 'https://digimedia.web.ua.pt/wp-content/uploads/2017/05/default-user-image.png');
             localStorage.setItem('cpf_cnpj', response.data.cpf_cnpj);
             localStorage.setItem('telefone', response.data.telefone);
 
@@ -629,10 +554,10 @@
           .catch(function (error) {
             console.error(error);
           });
-
       }
     }
   </script>
+  <script src="assets/js/main.js"></script>
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
@@ -644,7 +569,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
 
-  <script src="assets/js/main.js"></script>
+
 </body>
 
 </html>
