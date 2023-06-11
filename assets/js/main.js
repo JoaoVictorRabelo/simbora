@@ -169,10 +169,7 @@
       heroCarouselIndicators.innerHTML += "<li data-bs-target='#heroCarousel' data-bs-slide-to='" + index + "'></li>"
   });
 
-  /**
-   * Filmes Slider
-   */
-  new Swiper('.filmes-slider', {
+  new Swiper('.card-slider', {
     speed: 400,
     loop: true,
     autoplay: {
@@ -200,7 +197,7 @@
       },
       992: {
         slidesPerView: 4,
-        spaceBetween: 100
+        spaceBetween: 90
       }
     }
   });

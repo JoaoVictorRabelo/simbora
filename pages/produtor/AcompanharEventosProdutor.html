@@ -47,6 +47,10 @@
           class="d-inline-block align-text-top mx-5">
       </a>
     </div>
+    <div>
+      <i onclick="logout()" class='fas fa-sign-out-alt'
+        style='font-size:32px;color:white; margin-right: 32px; cursor: pointer;'></i>
+    </div>
   </nav>
   <!-- Fim da Navbar -->
 
@@ -117,6 +121,11 @@
         ],
       },
     });
+
+    function logout() {
+      localStorage.clear();
+      window.location.href = "/Index.html"
+    }
   </script>
   <script src="JS/jquery-3.6.0.min.js"></script>
   <script src="JS/bootstrap.min.js"></script>

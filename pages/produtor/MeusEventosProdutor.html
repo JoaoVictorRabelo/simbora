@@ -43,6 +43,10 @@
                     class="d-inline-block align-text-top mx-5">
             </a>
         </div>
+        <div>
+            <i onclick="logout()" class='fas fa-sign-out-alt'
+                style='font-size:32px;color:white; margin-right: 32px; cursor: pointer;'></i>
+        </div>
     </nav>
     <!-- Fim da Navbar -->
 
@@ -82,9 +86,9 @@
                                 style="background-color: #198754; color: #fff;">PUBLICAR</button>
                             <button type="button" class="btn btn-sm m-0"
                                 style="background-color: #0D6EFD; color: #fff;">EDITAR</button>
-                                <button type="button" class="btn btn-sm m-0"
+                            <button type="button" class="btn btn-sm m-0"
                                 style="background-color: #fc0000; color: #fff;">CANCELAR</button>
-                                <button type="button" class="btn btn-sm m-0"
+                            <button type="button" class="btn btn-sm m-0"
                                 style="background-color: #393c41; color: #fff;">DELETAR</button>
                         </td>
                     </tr>
@@ -101,9 +105,9 @@
                                 style="background-color: #198754; color: #fff;">PUBLICAR</button>
                             <button type="button" class="btn btn-sm m-0"
                                 style="background-color: #0D6EFD; color: #fff;">EDITAR</button>
-                                <button type="button" class="btn btn-sm m-0"
+                            <button type="button" class="btn btn-sm m-0"
                                 style="background-color: #fc0000; color: #fff;">CANCELAR</button>
-                                <button type="button" class="btn btn-sm m-0"
+                            <button type="button" class="btn btn-sm m-0"
                                 style="background-color: #393c41; color: #fff;">DELETAR</button>
                         </td>
                     </tr>
@@ -120,9 +124,9 @@
                                 style="background-color: #198754; color: #fff;">PUBLICAR</button>
                             <button type="button" class="btn btn-sm m-0"
                                 style="background-color: #0D6EFD; color: #fff;">EDITAR</button>
-                                <button type="button" class="btn btn-sm m-0"
+                            <button type="button" class="btn btn-sm m-0"
                                 style="background-color: #fc0000; color: #fff;">CANCELAR</button>
-                                <button type="button" class="btn btn-sm m-0"
+                            <button type="button" class="btn btn-sm m-0"
                                 style="background-color: #393c41; color: #fff;">DELETAR</button>
                         </td>
                     </tr>
@@ -139,9 +143,9 @@
                                 style="background-color: #198754; color: #fff;">PUBLICAR</button>
                             <button type="button" class="btn btn-sm m-0"
                                 style="background-color: #0D6EFD; color: #fff;">EDITAR</button>
-                                <button type="button" class="btn btn-sm m-0"
+                            <button type="button" class="btn btn-sm m-0"
                                 style="background-color: #fc0000; color: #fff;">CANCELAR</button>
-                                <button type="button" class="btn btn-sm m-0"
+                            <button type="button" class="btn btn-sm m-0"
                                 style="background-color: #393c41; color: #fff;">DELETAR</button>
                         </td>
                     </tr>
@@ -158,9 +162,9 @@
                                 style="background-color: #198754; color: #fff;">PUBLICAR</button>
                             <button type="button" class="btn btn-sm m-0"
                                 style="background-color: #0D6EFD; color: #fff;">EDITAR</button>
-                                <button type="button" class="btn btn-sm m-0"
+                            <button type="button" class="btn btn-sm m-0"
                                 style="background-color: #fc0000; color: #fff;">CANCELAR</button>
-                                <button type="button" class="btn btn-sm m-0"
+                            <button type="button" class="btn btn-sm m-0"
                                 style="background-color: #393c41; color: #fff;">DELETAR</button>
                         </td>
                     </tr>
@@ -180,8 +184,8 @@
     <footer id="footer">
         <div class="container">
             <a href="/Index.html">
-        <img src="/assets/img/Logo.png" alt="Logo" width="120" class="d-inline-block align-text-top mx-5 my-2">
-      </a>
+                <img src="/assets/img/Logo.png" alt="Logo" width="120" class="d-inline-block align-text-top mx-5 my-2">
+            </a>
             <div class="social-links">
                 <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
                 <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
@@ -193,7 +197,12 @@
         </div>
     </footer>
     <!-- End Footer -->
-
+    <script>
+        function logout() {
+            localStorage.clear();
+            window.location.href = "/Index.html"
+        }
+    </script>
 
     <!-- Vendor JS Files -->
     <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

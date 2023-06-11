@@ -43,6 +43,10 @@
           class="d-inline-block align-text-top mx-5">
       </a>
     </div>
+    <div>
+      <i onclick="logout()" class='fas fa-sign-out-alt'
+        style='font-size:32px;color:white; margin-right: 32px; cursor: pointer;'></i>
+    </div>
   </nav>
   <!-- Fim da Navbar -->
 
@@ -52,14 +56,13 @@
         <div class="container">
           <div class="container text-center mb-4">
             <div class="mb-3">
-              <img
-                src="https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png"
-                width="200" height="200" class="rounded-circle" style="background-color: #FD7E14; padding: 0px;">
+              <img src="" id="userImagem" width="200" height="200" class="rounded-circle"
+                style="background-color: #FD7E14; padding: 0px;">
             </div>
             <a href="EditarProdutor.html" style="color: #007BFF;">Editar Perfil</a>
           </div>
           <div class="text-center">
-            <h2>Seja bem vindo, Produtor!</h2>
+            <h2>Seja bem vindo, <span id="nome"></span></h2>
           </div>
           <!-- Começo dos Cards -->
           <div class="container" style="margin-top: 5rem;">
@@ -135,7 +138,21 @@
   </footer>
   <!-- End Footer -->
 
+  <script>
+    var imagem = localStorage.getItem('imagem');
+    var nome = localStorage.getItem('nome');
 
+    var imgExibicao = document.getElementById('userImagem');
+    imgExibicao.src = imagem;
+
+    var nameExibicao = document.getElementById('nome');
+    nameExibicao.innerHTML = nome;
+
+    function logout() {
+      localStorage.clear();
+      window.location.href = "/Index.html"
+    }
+  </script>
   <!-- Vendor JS Files -->
   <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>

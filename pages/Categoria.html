@@ -17,10 +17,7 @@
 
   <link rel="stylesheet" href="	https://use.fontawesome.com/releases/v5.7.2/css/all.css">
 
-  <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&display=swap" rel="stylesheet"> -->
-
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
   <!-- Vendor CSS Files -->
   <link href="/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
@@ -30,21 +27,13 @@
   <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <style>
-    .bg-custom-1 {
-      background-color: #85144b;
-    }
 
-    .bg-custom-2 {
-      background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
-    }
-  </style>
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #198754; height: 7rem;">
     <div class="container-fluid">
-      <a href="/pages/logged/Index.html">
+      <a href="/Index.html">
         <img src="/assets/img/Logo.png" alt="Logo" width="120" class="d-inline-block align-text-top mx-5">
       </a>
       <div class="search-bar-body">
@@ -57,22 +46,20 @@
       <div class="collapse navbar-collapse mx-5" id="navbarNavDropdown">
         <ul class="navbar-nav ms-auto d-none d-lg-inline-flex">
           <li class="nav-item mx-2">
-            <div class="collapse navbar-collapse" id="navbar-list-4">
-              <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="" width="60" id="userImagem" height="60" class="rounded-circle"
-                      style="background-color: #FD7E14; padding: 0px;">
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/pages/logged/pages/Favoritar.html">Favoritos</a>
-                    <a class="dropdown-item" href="/pages/logged/pages/Perfil.html">Editar perfil</a>
-                    <a class="dropdown-item" onclick="logout()">Sair</a>
-                  </div>
-                </li>
-              </ul>
-            </div>
+            <a href="#myModalProdutor" class="trigger-btn" data-toggle="modal">
+              <button class="btn text-uppercase" style="color: #FFF;">seja um produtor</button>
+            </a>
+          </li>
+          <li class="nav-item mx-2">
+            <a href="#myModal" class="trigger-btn" data-toggle="modal">
+              <button class="btn text-uppercase" style="color: #FFF;">Entrar</button>
+            </a>
+          </li>
+          <li class="nav-item mx-2">
+            <a href="#myModalCadastro" class="trigger-btn" data-toggle="modal">
+              <button type="button" class="btn text-uppercase" data-toggle="modal"
+                style="background-color: #FD7E14; color: #FFF;">Inscrever-se</button>
+            </a>
           </li>
         </ul>
       </div>
@@ -102,7 +89,7 @@
               <div class="ml-auto"> <a href="#" class="text-decoration-none" id="forgot">Esqueceu a senha?</a> </div>
             </div>
             <div class="text-center pt-3 text-muted">
-              <a href="/pages/logged/Index.html">
+              <a href="/Index.html">
                 <button type="button" class="btn btn-block text-center my-3">Entrar</button>
               </a>
             </div>
@@ -144,7 +131,7 @@
                     name="checkbox"> <span class="checkmark"></span> </label>
               </div>
             </div>
-            <a href="/pages/logged/Index.html">
+            <a href="/Index.html">
               <button type="button" class="btn btn-block text-center my-3">Cadastrar</button>
             </a>
           </form>
@@ -270,43 +257,18 @@
     </div>
   </div>
 
-  <!-- ======= Hero Section ======= -->
   <section id="hero">
     <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
       <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
-      <div class="carousel-inner" role="listbox">
+      <div id="carousel-container" class="carousel-inner" role="listbox">
         <!-- Slide 1 -->
-        <div class="carousel-item active" style="background-image: url(/assets/img/slide/slide-1.jpg)">
-          <div class="carousel-container">
-            <div class="container">
-              <h2 class="animate__animated animate__fadeInDown">Lorem Ipsum Dolor</h2>
-              <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea
-                ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem.
-                Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-            </div>
-          </div>
+        <div id="slide-1" class="carousel-item active">
         </div>
         <!-- Slide 2 -->
-        <div class="carousel-item" style="background-image: url(/assets/img/slide/slide-2.jpg)">
-          <div class="carousel-container">
-            <div class="container">
-              <h2 class="animate__animated animate__fadeInDown">Lorem Ipsum Dolor</h2>
-              <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea
-                ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem.
-                Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-            </div>
-          </div>
+        <div id="slide-2" class="carousel-item">
         </div>
         <!-- Slide 3 -->
-        <div class="carousel-item" style="background-image: url(/assets/img/slide/slide-3.jpg)">
-          <div class="carousel-container">
-            <div class="container">
-              <h2 class="animate__animated animate__fadeInDown">Sequi ea ut et est quaerat</h2>
-              <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea
-                ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem.
-                Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-            </div>
-          </div>
+        <div id="slide-3" class="carousel-item">
         </div>
       </div>
       <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
@@ -317,249 +279,120 @@
       </a>
     </div>
   </section>
-  <!-- End Hero -->
 
 
-  <!-- ======= Filmes Section ======= -->
   <section id="filmes" class="filmes">
     <div class="container">
-
       <div class="section-title">
-        <h2>CATEGORIAS EM DESTAQUE</h2>
-        <p>Os mais procurados</p>
+        <h2 id="title-category"></h2>
       </div>
-
       <div class="card-slider swiper">
         <div class="swiper-wrapper align-items-center">
           <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="/assets/img/Igrejaaa.png"
+            <div class="card" style="width: 19rem; border-radius: 12px; height: 25rem;">
+              <img class="card-img-top" src="/assets/img/TudoAoMsmTemp.png"
                 style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
                 alt="Imagem de capa do card">
               <div class="card-body">
-                <h5 class="card-title">Religioso</h5>
-                <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                  cultos,
-                  congresso, culto de jovens e muito mais.</p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
+                <h5 class="card-title">Tudo em Todo o Lugar ao Mesmo Tempo</h5>
+                <p class="card-text">Uma ruptura interdimensional bagunça a realidade</p>
+                <a href="/pages/PaginaTudoAoMesmoTempo.html" class="btn btn-primary mt-4">Ver mais</a>
               </div>
             </div>
           </div>
           <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="/assets/img/cinemah.png"
+            <div class="card" style="width: 19rem; border-radius: 12px; height: 25rem;">
+              <img class="card-img-top" src="/assets/img/TudoAoMsmTemp.png"
                 style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
                 alt="Imagem de capa do card">
               <div class="card-body">
-                <h5 class="card-title">Cinema</h5>
-                <p class="card-text">Venha conferir os filmes incríveis que estão em cartaz no cinema. Temos opções
-                  para
-                  todos
-                  os gostos, desde as comédias até os dramas mais emocionantes.</p>
-                <a href="pages/Cinema.html" class="btn btn-primary">Ver mais</a>
+                <h5 class="card-title">Tudo em Todo o Lugar ao Mesmo Tempo</h5>
+                <p class="card-text">Uma ruptura interdimensional bagunça a realidade</p>
+                <a href="/pages/PaginaTudoAoMesmoTempo.html" class="btn btn-primary mt-4">Ver mais</a>
               </div>
             </div>
           </div>
           <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="/assets/img/balada.png"
+            <div class="card" style="width: 19rem; border-radius: 12px; height: 25rem;">
+              <img class="card-img-top" src="/assets/img/TudoAoMsmTemp.png"
                 style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
                 alt="Imagem de capa do card">
               <div class="card-body">
-                <h5 class="card-title">Balada</h5>
-                <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                  cultos,
-                  congresso, culto de jovens e muito mais.</p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
+                <h5 class="card-title">Tudo em Todo o Lugar ao Mesmo Tempo</h5>
+                <p class="card-text">Uma ruptura interdimensional bagunça a realidade</p>
+                <a href="/pages/PaginaTudoAoMesmoTempo.html" class="btn btn-primary mt-4">Ver mais</a>
               </div>
             </div>
           </div>
           <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="/assets/img/TEATRO.png"
+            <div class="card" style="width: 19rem; border-radius: 12px; height: 25rem;">
+              <img class="card-img-top" src="/assets/img/TudoAoMsmTemp.png"
                 style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
                 alt="Imagem de capa do card">
               <div class="card-body">
-                <h5 class="card-title">Teatro</h5>
-                <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                  cultos,
-                  congresso, culto de jovens e muito mais.</p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
+                <h5 class="card-title">Tudo em Todo o Lugar ao Mesmo Tempo</h5>
+                <p class="card-text">Uma ruptura interdimensional bagunça a realidade</p>
+                <a href="/pages/PaginaTudoAoMesmoTempo.html" class="btn btn-primary mt-4">Ver mais</a>
               </div>
             </div>
           </div>
           <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="/assets/img/NatalDeLuz.png"
+            <div class="card" style="width: 19rem; border-radius: 12px; height: 25rem;">
+              <img class="card-img-top" src="/assets/img/TudoAoMsmTemp.png"
                 style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
                 alt="Imagem de capa do card">
               <div class="card-body">
-                <h5 class="card-title">Feiras</h5>
-                <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                  cultos,
-                  congresso, culto de jovens e muito mais.</p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
+                <h5 class="card-title">Tudo em Todo o Lugar ao Mesmo Tempo</h5>
+                <p class="card-text">Uma ruptura interdimensional bagunça a realidade</p>
+                <a href="/pages/PaginaTudoAoMesmoTempo.html" class="btn btn-primary mt-4">Ver mais</a>
               </div>
             </div>
           </div>
           <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="/assets/img/EventoInfantil.png"
+            <div class="card" style="width: 19rem; border-radius: 12px; height: 25rem;">
+              <img class="card-img-top" src="/assets/img/TudoAoMsmTemp.png"
                 style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
                 alt="Imagem de capa do card">
               <div class="card-body">
-                <h5 class="card-title">Infantis</h5>
-                <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                  cultos,
-                  congresso, culto de jovens e muito mais.</p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
+                <h5 class="card-title">Tudo em Todo o Lugar ao Mesmo Tempo</h5>
+                <p class="card-text">Uma ruptura interdimensional bagunça a realidade</p>
+                <a href="/pages/PaginaTudoAoMesmoTempo.html" class="btn btn-primary mt-4">Ver mais</a>
               </div>
             </div>
           </div>
           <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="/assets/img/Showss.webp"
+            <div class="card" style="width: 19rem; border-radius: 12px; height: 25rem;">
+              <img class="card-img-top" src="/assets/img/TudoAoMsmTemp.png"
                 style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
                 alt="Imagem de capa do card">
               <div class="card-body">
-                <h5 class="card-title">Shows</h5>
-                <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                  cultos,
-                  congresso, culto de jovens e muito mais.</p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
+                <h5 class="card-title">Tudo em Todo o Lugar ao Mesmo Tempo</h5>
+                <p class="card-text">Uma ruptura interdimensional bagunça a realidade</p>
+                <a href="/pages/PaginaTudoAoMesmoTempo.html" class="btn btn-primary mt-4">Ver mais</a>
               </div>
             </div>
           </div>
           <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="/assets/img/MaedaEducacao.jfif"
+            <div class="card" style="width: 19rem; border-radius: 12px; height: 25rem;">
+              <img class="card-img-top" src="/assets/img/TudoAoMsmTemp.png"
                 style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
                 alt="Imagem de capa do card">
               <div class="card-body">
-                <h5 class="card-title">Educativos</h5>
-                <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                  cultos,
-                  congresso, culto de jovens e muito mais.</p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
+                <h5 class="card-title">Tudo em Todo o Lugar ao Mesmo Tempo</h5>
+                <p class="card-text">Uma ruptura interdimensional bagunça a realidade</p>
+                <a href="/pages/PaginaTudoAoMesmoTempo.html" class="btn btn-primary mt-4">Ver mais</a>
               </div>
             </div>
           </div>
         </div>
         <div class="swiper-pagination"></div>
       </div>
-
     </div>
-  </section><!-- End Filmes Section -->
+  </section>
 
-
-
-  <!-- <div class="">
-    <div class="container row justify-content-center mb-3">
-      <div class="col-md-7">
-        <h1 class="mb-6">
-          Categorias
-        </h1>
-      </div>
-    </div>
-
-    <div class="secound-slider">
-      <section class="regular slider">
-        <div>
-          <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-            <img class="card-img-top" src="IMG/Igrejaaa.png"
-              style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-              alt="Imagem de capa do card">
-            <div class="card-body">
-              <h5 class="card-title">Religioso</h5>
-              <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                cultos,
-                congresso, culto de jovens e muito mais.</p>
-              <a href="#" class="btn btn-primary mt-4">Ver mais</a>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-            <img class="card-img-top" src="IMG/cinemah.png"
-              style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-              alt="Imagem de capa do card">
-            <div class="card-body">
-              <h5 class="card-title">Cinema</h5>
-              <p class="card-text">Venha conferir os filmes incríveis que estão em cartaz no cinema. Temos opções
-                para
-                todos
-                os gostos, desde as comédias até os dramas mais emocionantes.</p>
-              <a href="CategoriaDoCinema.html" class="btn btn-primary">Ver mais</a>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-            <img class="card-img-top" src="IMG/TEATRO.png"
-              style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-              alt="Imagem de capa do card">
-            <div class="card-body">
-              <h5 class="card-title">Teatro</h5>
-              <p class="card-text">Venha conferir as peças incríveis que estão em cartaz no teatro. Temos opções
-                para
-                todos
-                os gostos, desde as comédias até os dramas mais emocionantes. </p>
-              <a href="#" class="btn btn-primary">Ver mais</a>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-            <img class="card-img-top" src="IMG/balada.png"
-              style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-              alt="Imagem de capa do card">
-            <div class="card-body">
-              <h5 class="card-title">Shows</h5>
-              <p class="card-text">Venha conferir os eventos noturnos que estão disponível na plataforma. E será uma
-                noite
-                de muita diversão, música boa e dança até o amanhecer!
-              <p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-            <img class="card-img-top" src="IMG/Igrejaaa.png"
-              style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-              alt="Imagem de capa do card">
-            <div class="card-body">
-              <h5 class="card-title">Religioso</h5>
-              <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                cultos,
-                congresso, culto de jovens e muito mais.</p>
-              <a href="#" class="btn btn-primary mt-4">Ver mais</a>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-            <img class="card-img-top" src="IMG/cinemah.png"
-              style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-              alt="Imagem de capa do card">
-            <div class="card-body">
-              <h5 class="card-title">Cinema</h5>
-              <p class="card-text">Venha conferir os filmes incríveis que estão em cartaz no cinema. Temos opções
-                para
-                todos
-                os gostos, desde as comédias até os dramas mais emocionantes.</p>
-              <a href="CategoriaDoCinema.html" class="btn btn-primary">Ver mais</a>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  </div> -->
-
-  <!-- ======= Footer ======= -->
   <footer id="footer">
-    <div class="container justify-content-center">
-      <a href="/pages/logged/Index.html">
+    <div class="container">
+      <a href="/Index.html">
         <img src="/assets/img/Logo.png" alt="Logo" width="120" class="d-inline-block align-text-top mx-5 my-2">
       </a>
       <div class="social-links">
@@ -573,17 +406,24 @@
     </div>
   </footer>
   <!-- End Footer -->
-
   <script>
-    var imagem = localStorage.getItem('imagem');
-    var imgExibicao = document.getElementById('userImagem');
-    imgExibicao.src = imagem;
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoria = urlParams.get('categoria');
 
-    function logout() {
-      localStorage.clear();
-      window.location.href = "/Index.html"
-    }
+    const titulo = document.getElementById('title-category')
+    titulo.textContent = categoria;
+
+    const divSlide1 = document.getElementById('slide-1');
+    divSlide1.style.backgroundImage = `url('http://localhost:3000/uploads/categories/slider/${categoria}/0.jpg')`;
+
+    const divSlide2 = document.getElementById('slide-2');
+    divSlide2.style.backgroundImage = `url('http://localhost:3000/uploads/categories/slider/${categoria}/1.jpg')`;
+
+    const divSlide3 = document.getElementById('slide-3');
+    divSlide3.style.backgroundImage = `url('http://localhost:3000/uploads/categories/slider/${categoria}/2.jpg')`;
+
   </script>
+
   <!-- Vendor JS Files -->
   <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>

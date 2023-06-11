@@ -368,6 +368,10 @@ a {
 .filmes .swiper-slide img {
   opacity: 1;
   transition: 0.3s;
+  min-height: 10rem;
+  max-height: 10rem;
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
 }
 
 .filmes .swiper-pagination {

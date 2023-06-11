@@ -28,7 +28,11 @@
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <style>
-
+    .card-custom {
+      width: 19rem;
+      height: 22rem;
+      border-radius: 16px;
+    }
   </style>
   <script>
 
@@ -70,7 +74,11 @@
       </div>
     </div>
   </nav>
-  <!-- Fim da Navbar -->
+
+  <div id="modalAlert" class="alert alert-warning alert-dismissible fade"
+    style="position:fixed; margin-top: 10rem; margin-left: 2rem; z-index: 99999;">
+    <strong>Erro!</strong> <span id="messageSpan"></span>
+  </div>
 
   <!-- Modal Login -->
   <div id="myModal" class="modal fade">
@@ -105,7 +113,6 @@
     </div>
   </div>
 
-  <!-- Modal Cadastro -->
   <div id="myModalCadastro" class="modal fade">
     <div class="modal-dialog modal-login">
       <div class="modal-content">
@@ -136,16 +143,13 @@
                     name="checkbox"> <span class="checkmark"></span> </label>
               </div>
             </div>
-            <!-- <a href="/pages/logged/Index.html"> -->
             <button type="button" onclick="cadastro()" class="btn btn-block text-center my-3">Cadastrar</button>
-            <!-- </a> -->
           </form>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Modal Produtor -->
   <div id="myModalProdutor" class="modal fade">
     <div class="modal-dialog modal-login">
       <div class="modal-content">
@@ -167,12 +171,13 @@
               <div class="h2 text-center">Login</div>
               <form class="pt-3">
                 <div class="form-group py-2">
-                  <div class="input-field-email-produtor"> <span class="far fa-user p-2"></span> <input type="text"
+                  <div class="input-field"> <span class="far fa-user p-2"></span> <input type="text"
                       placeholder="Username ou Email" id="email-produtor" required class=""> </div>
                 </div>
                 <div class="form-group py-1 pb-2">
-                  <div class="input-field-senha-produtor"> <span class="fas fa-lock p-2"></span> <input type="text" placeholder="Senha"
-                      required class="" id="senha-produtor"> <button class="btn bg-white text-muted"> <span class="far fa-eye-slash"></span>
+                  <div class="input-field"> <span class="fas fa-lock p-2"></span> <input type="text" placeholder="Senha"
+                      required class="" id="senha-produtor"> <button class="btn bg-white text-muted"> <span
+                        class="far fa-eye-slash"></span>
                     </button> </div>
                 </div>
                 <div class="d-flex justify-content-between">
@@ -182,74 +187,71 @@
                   </div>
                 </div>
                 <div class="text-center pt-3 text-muted">
-                    <button type="button" onclick="loginProdutor()" class="btn btn-block text-center my-3">Entrar</button>
+                  <button type="button" onclick="loginProdutor()" class="btn btn-block text-center my-3">Entrar</button>
                 </div>
               </form>
             </div>
             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
               <div class="h2 text-center">Cadastro</div>
               <form class="text-center" method="get">
-                <!-- 2 coluna grid layout com textos de inputs para Nome e Sobrenome -->
                 <div class="row">
                   <div class="col-md-6 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="form3Example1">Nome</label>
-                      <input type="text" id="form3Example1" class="form-control" />
+                      <input type="text" id="nome-produtor-cadastro" class="form-control" />
                     </div>
                   </div>
                   <div class="col-md-6 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="form3Example2">Sobrenome</label>
-                      <input type="text" id="form3Example2" class="form-control" />
+                      <input type="text" id="sobrenome-produtor-cadastro" class="form-control" />
                     </div>
                   </div>
                 </div>
-                <!-- Email input e CNPJ -->
                 <div class="row">
                   <div class="col-md-6 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="form3Example1">Email</label>
-                      <input type="text" id="form3Example1" class="form-control" />
+                      <input type="text" id="email-produtor-cadastro" class="form-control" />
                     </div>
                   </div>
                   <div class="col-md-6 mb-4">
                     <div class="form-outline">
-                      <label class="form-label" for="form3Example2">CNPJ</label>
-                      <input type="text" id="form3Example2" class="form-control" placeholder="00.000.000/0000-00" />
+                      <label class="form-label" for="form3Example2">CNPJ/CPF</label>
+                      <input type="text" id="cpf-cnpj-produtor-cadastro" maxlength="17" class="form-control" />
                     </div>
                   </div>
                 </div>
-                <!-- telefones -->
                 <div class="row">
                   <div class="col-md-6 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="form3Example1">Telefone</label>
-                      <input type="text" id="form3Example1" class="form-control" placeholder="(99) 99999-9999" />
+                      <input type="text" id="telefone-produtor-cadastro" maxlength="14" class="form-control"
+                        placeholder="(99) 99999-9999" />
                     </div>
                   </div>
                   <div class="col-md-6 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="form3Example2">Telefone 2</label>
-                      <input type="text" id="form3Example2" class="form-control" placeholder="(99) 99999-9999" />
+                      <input type="text" id="telefone2-produtor-cadastro" maxlength="14" class="form-control"
+                        placeholder="(99) 99999-9999" />
                     </div>
                   </div>
                 </div>
-                <!-- Senha -->
                 <div class="mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="form3Example2">Senha</label>
-                    <input type="password" id="form3Example2" class="form-control" />
+                    <input type="password" id="senha-produtor-cadastro" class="form-control" />
                   </div>
                 </div>
-                <!-- Checkbox -->
                 <div class="form-check d-flex justify-content-center mb-4">
                   <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
                   <label class="form-check-label" for="form2Example33">
                     Concordo com os termos e condições
                   </label>
                 </div>
-                <!-- button -->
-                  <button type="button" onclick="" class="btn btn-block text-center my-3">Cadastrar</button>
+                <button type="button" onclick="cadastroProdutor()"
+                  class="btn btn-block text-center my-3">Cadastrar</button>
               </form>
             </div>
           </div>
@@ -258,12 +260,10 @@
     </div>
   </div>
 
-  <!-- ======= Hero Section ======= -->
   <section id="hero">
     <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
       <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
       <div class="carousel-inner" role="listbox">
-        <!-- Slide 1 -->
         <div class="carousel-item active" style="background-image: url(assets/img/slide/slide-1.jpg)">
           <div class="carousel-container">
             <div class="container">
@@ -274,7 +274,6 @@
             </div>
           </div>
         </div>
-        <!-- Slide 2 -->
         <div class="carousel-item" style="background-image: url(assets/img/slide/slide-2.jpg)">
           <div class="carousel-container">
             <div class="container">
@@ -285,7 +284,6 @@
             </div>
           </div>
         </div>
-        <!-- Slide 3 -->
         <div class="carousel-item" style="background-image: url(assets/img/slide/slide-3.jpg)">
           <div class="carousel-container">
             <div class="container">
@@ -305,138 +303,23 @@
       </a>
     </div>
   </section>
-  <!-- End Hero -->
 
 
-  <!-- ======= Filmes Section ======= -->
   <section id="filmes" class="filmes">
     <div class="container">
       <div class="section-title">
-        <h2>Eventos em destaque</h2>
+        <h2>CATEGORIAS EM DESTAQUE</h2>
         <p>Os mais procurados</p>
       </div>
 
-      <div class="filmes-slider swiper">
-        <div class="swiper-wrapper align-items-center">
-          <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="assets/img/Igrejaaa.png"
-                style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-                alt="Imagem de capa do card">
-              <div class="card-body">
-                <h5 class="card-title">Religioso</h5>
-                <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                  cultos,
-                  congresso, culto de jovens e muito mais.</p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="assets/img/cinemah.png"
-                style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-                alt="Imagem de capa do card">
-              <div class="card-body">
-                <h5 class="card-title">Cinema</h5>
-                <p class="card-text">Venha conferir os filmes incríveis que estão em cartaz no cinema. Temos opções
-                  para
-                  todos
-                  os gostos, desde as comédias até os dramas mais emocionantes.</p>
-                <a href="pages/Cinema.html" class="btn btn-primary">Ver mais</a>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="assets/img/balada.png"
-                style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-                alt="Imagem de capa do card">
-              <div class="card-body">
-                <h5 class="card-title">Balada</h5>
-                <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                  cultos,
-                  congresso, culto de jovens e muito mais.</p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="assets/img/TEATRO.png"
-                style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-                alt="Imagem de capa do card">
-              <div class="card-body">
-                <h5 class="card-title">Teatro</h5>
-                <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                  cultos,
-                  congresso, culto de jovens e muito mais.</p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="assets/img/NatalDeLuz.png"
-                style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-                alt="Imagem de capa do card">
-              <div class="card-body">
-                <h5 class="card-title">Feiras</h5>
-                <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                  cultos,
-                  congresso, culto de jovens e muito mais.</p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="assets/img/EventoInfantil.png"
-                style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-                alt="Imagem de capa do card">
-              <div class="card-body">
-                <h5 class="card-title">Infantis</h5>
-                <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                  cultos,
-                  congresso, culto de jovens e muito mais.</p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="assets/img/Showss.webp"
-                style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-                alt="Imagem de capa do card">
-              <div class="card-body">
-                <h5 class="card-title">Shows</h5>
-                <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                  cultos,
-                  congresso, culto de jovens e muito mais.</p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="assets/img/MaedaEducacao.jfif"
-                style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-                alt="Imagem de capa do card">
-              <div class="card-body">
-                <h5 class="card-title">Educativos</h5>
-                <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                  cultos,
-                  congresso, culto de jovens e muito mais.</p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
-              </div>
-            </div>
-          </div>
+      <div class="card-slider swiper">
+        <div id="cards-container" class="swiper-wrapper align-items-center">
         </div>
         <div class="swiper-pagination"></div>
       </div>
 
     </div>
-  </section><!-- End Filmes Section -->
+  </section>
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
@@ -480,11 +363,14 @@
           if (error.response.status === 404) {
             document.getElementById('emailInput').classList.add('input-field-error');
             document.getElementById('passwordInput').classList.remove('input-field-error');
-
-          } else {
+            exibirAlertDialog(error.response.data.message);
+          } else if (error.response.status === 401) {
+            exibirAlertDialog(error.response.data.message);
             document.getElementById('passwordInput').classList.add('input-field-error');
             document.getElementById('emailInput').classList.remove('input-field-error');
 
+          } else {
+            exibirAlertDialog(error.response.data.error);
           }
         });
     }
@@ -512,13 +398,13 @@
         .catch(function (error) {
           console.error(error);
           if (error.response.status === 404) {
+            exibirAlertDialog(error.response.data.message);
             document.getElementById('input-field-email-produtor').classList.add('input-field-error');
             document.getElementById('input-field-senha-produtor').classList.remove('input-field-error');
-
-          } else {
+          } else if (error.response.status === 401) {
+            exibirAlertDialog(error.response.data.message);
             document.getElementById('input-field-senha-produtor').classList.add('input-field-error');
             document.getElementById('input-field-email-produtor').classList.remove('input-field-error');
-
           }
         });
     }
@@ -540,7 +426,7 @@
           // AccessLevel: "646e9089daa015d12e6b3648"
         })
           .then(function (response) {
-            localStorage.setItem('id', response.data.id);
+            localStorage.setItem('id', response.data._id);
             localStorage.setItem('nome', response.data.nome);
             localStorage.setItem('email', response.data.email);
             localStorage.setItem('senha', response.data.senha);
@@ -553,12 +439,188 @@
           })
           .catch(function (error) {
             console.error(error);
+            exibirAlertDialog(error.response.data.error);
           });
       }
     }
+
+    function cadastroProdutor() {
+
+      var email = document.getElementById('email-produtor-cadastro').value;
+      var senha = document.getElementById('senha-produtor-cadastro').value;
+      var nome = document.getElementById('nome-produtor-cadastro').value;
+      var sobrenome = document.getElementById('sobrenome-produtor-cadastro').value;
+      var cpfcnpj = document.getElementById('cpf-cnpj-produtor-cadastro').value;
+      var telefone = document.getElementById('telefone-produtor-cadastro').value;
+      var telefone2 = document.getElementById('telefone2-produtor-cadastro').value;
+
+      if (email !== null && senha !== null && nome !== null) {
+
+        axios.post('http://localhost:3000/api/users', {
+          nome: nome,
+          email: email,
+          senha: senha,
+          AccessLevel: "produtor",
+          sobrenome: sobrenome,
+          cpf_cnpj: removerMascara(cpfcnpj),
+          telefone: removerMascara(telefone),
+          telefone2: removerMascara(telefone2)
+        })
+          .then(function (response) {
+            localStorage.setItem('id', response.data._id);
+            localStorage.setItem('nome', response.data.nome);
+            localStorage.setItem('email', response.data.email);
+            localStorage.setItem('senha', response.data.senha);
+            localStorage.setItem('AccessLevel', response.data.AccessLevel);
+            localStorage.setItem('imagem', response.data.imagem !== null ? 'http://localhost:3000/uploads/' + response.data.imagem : 'https://digimedia.web.ua.pt/wp-content/uploads/2017/05/default-user-image.png');
+            localStorage.setItem('cpf_cnpj', response.data.cpf_cnpj);
+            localStorage.setItem('telefone', response.data.telefone);
+
+            window.location.href = "pages/produtor/HomeProdutor.html"
+          })
+          .catch(function (error) {
+            console.error(error);
+            exibirAlertDialog(error.response.data.error);
+          });
+      }
+    }
+
+    function getCategorias() {
+      axios.get('http://localhost:3000/api/category/')
+        .then(function (response) {
+          return response.data;
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+
+    // Função para criar os cards das categorias
+    function createCategoryCard(categoria) {
+      const slide = document.createElement('div');
+      slide.classList.add('swiper-slide');
+
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.classList.add('card-custom');
+
+      const img = document.createElement('img');
+      img.classList.add('card-img-top');
+      img.src = "http://localhost:3000/uploads/" + categoria.imagem;
+      img.alt = 'Imagem de capa do card';
+
+      const cardBody = document.createElement('div');
+      cardBody.classList.add('card-body');
+
+      const title = document.createElement('h5');
+      title.classList.add('card-title');
+      title.textContent = categoria.nome;
+
+      const description = document.createElement('p');
+      description.classList.add('card-text');
+      description.textContent = categoria.descricao;
+
+      const link = document.createElement('a');
+      link.classList.add('btn', 'btn-primary', 'mt-4');
+      link.href = 'pages/Categoria.html?categoria='+categoria.nome;
+      link.textContent = 'Ver mais';
+
+      cardBody.appendChild(title);
+      cardBody.appendChild(description);
+      cardBody.appendChild(link);
+
+      card.appendChild(img);
+      card.appendChild(cardBody);
+
+      slide.appendChild(card);
+
+      return slide;
+    }
+
+    function renderCategories() {
+      const cardsContainer = document.getElementById('cards-container');
+
+      axios.get('http://localhost:3000/api/category/')
+        .then(function (categorias) {
+          return categorias.data.forEach(categoria => {
+            const card = createCategoryCard(categoria);
+            cardsContainer.appendChild(card);
+          });
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+
+    window.addEventListener('load', renderCategories);
+
+    var telefoneInput = document.getElementById('telefone-produtor-cadastro');
+    var telefone2Input = document.getElementById('telefone2-produtor-cadastro');
+    var cpfCnpjInput = document.getElementById('cpf-cnpj-produtor-cadastro');
+
+
+    telefoneInput.addEventListener('input', function () {
+      var numeroTelefone = telefoneInput.value;
+      var telefoneFormatado = formatarTelefone(numeroTelefone);
+
+      telefoneInput.value = telefoneFormatado;
+    });
+
+    telefone2Input.addEventListener('input', function () {
+      var numeroTelefone2 = telefone2Input.value;
+      var telefone2Formatado = formatarTelefone(numeroTelefone2);
+
+      telefone2Input.value = telefone2Formatado;
+    });
+
+    cpfCnpjInput.addEventListener('input', function () {
+      var numerocpfCnpj = cpfCnpjInput.value;
+      var cpfCnpjFormatado = formatarCpfCnpj(numerocpfCnpj);
+
+      cpfCnpjInput.value = cpfCnpjFormatado;
+    });
+
+    function formatarTelefone(telefone) {
+      var numeros = telefone.replace(/\D/g, '');
+
+      var padrao = /(\d{2})(\d{5})(\d{4})/;
+      var resultado = numeros.replace(padrao, '($1) $2-$3');
+
+      return resultado;
+    }
+
+    function formatarCpfCnpj(numero) {
+      var numeros = numero.replace(/\D/g, '');
+
+      if (numeros.length === 11) {
+        return numeros.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+      }
+      else if (numeros.length === 14) {
+        return numeros.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+      }
+      else {
+        return numero;
+      }
+    }
+
+    function removerMascara(numero) {
+      var numeros = numero.replace(/\D/g, '');
+      return numeros;
+    }
+
+    function exibirAlertDialog(mensagem) {
+      var modalAlert = document.getElementById('modalAlert');
+      var messageSpan = document.getElementById('messageSpan');
+
+      modalAlert.className = 'alert alert-warning alert-dismissible fade show';
+      messageSpan.textContent = mensagem ?? '';
+
+
+      setTimeout(function () {
+        modalAlert.className = 'alert alert-warning alert-dismissible fade';
+      }, 5000);
+    }
   </script>
-  <script src="assets/js/main.js"></script>
-  <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
@@ -569,7 +631,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
 
-
+  <script src="/assets/js/main.js"></script>
 </body>
 
 </html>

@@ -21,6 +21,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&display=swap" rel="stylesheet"> -->
 
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 
   <!-- Vendor CSS Files -->
   <link href="/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
@@ -30,9 +32,11 @@
   <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <style>
-
-  </style>
+  <script>
+    window.onload = function () {
+      getUsuario();
+    };
+  </script>
 </head>
 
 <body>
@@ -43,42 +47,50 @@
           class="d-inline-block align-text-top mx-5">
       </a>
     </div>
+    <div>
+      <i onclick="logout()" class='fas fa-sign-out-alt'
+        style='font-size:32px;color:white; margin-right: 32px; cursor: pointer;'></i>
+    </div>
   </nav>
-  <!-- Fim da Navbar -->
-
+  <div id="modalAlert" class="alert alert-success alert-dismissible fade"
+    style="position:fixed; margin-top: 5rem; margin-left: 2rem;">
+    <strong>Sucesso!</strong> <span id="messageSpan"></span>
+  </div>
   <div class="px-5" style="margin-top: 10rem;">
     <a href="HomeProdutor.html">Home</a> > <a>Editar Perfil</a>
   </div>
 
-  <!-- Começo do Formulário -->
   <section class="" style="margin-bottom: 11rem; background-color: #FFF;">
     <div class="container">
       <div class="row d-flex justify-content-center align-items-center">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
           <div class="container text-center mb-4">
-            <div class="mb-3">
-              <img
-                src="https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png"
-                width="200" height="200" class="rounded-circle" style="background-color: #FD7E14; padding: 0px;">
+            <div>
+              <img id="imagem-input" src="" width="200" height="200" class="rounded-circle"
+                style="background-color: #FD7E14; padding: 0px;">
             </div>
-            <a href="#" style="color: #007BFF;">Adicionar/Trocar Foto</a>
+            <div>
+              <label for="fileInput">
+                <a style="color: #007BFF;">Adicionar/Trocar Foto</a>
+              </label>
+              <input type="file" accept="image/*" id="fileInput" style="display: none;">
+            </div>
           </div>
           <div class="card shadow-2-strong p-4" style="border-radius: 1rem;">
             <h3 class="mb-5 text-left" style="color: #C58508;">Editar Perfil</h3>
             <div class="card-body p-2 text-center">
               <form>
-                <!-- 2 coluna grid layout com textos de inputs para Nome e Sobrenome -->
                 <div class="row">
                   <div class="col-md-6 mb-4">
                     <div class="form-outline">
-                      <label class="form-label" for="form3Example1">Nome</label>
-                      <input type="text" id="form3Example1" class="form-control" value="Evandro" />
+                      <label class="form-label" for="">Nome</label>
+                      <input type="text" id="nome-input" class="form-control" value="" />
                     </div>
                   </div>
                   <div class="col-md-6 mb-4">
                     <div class="form-outline">
-                      <label class="form-label" for="form3Example2">Sobrenome</label>
-                      <input type="text" id="form3Example2" class="form-control" value="Lima" />
+                      <label class="form-label" for="">Sobrenome</label>
+                      <input type="text" id="sobrenome-input" class="form-control" value="" />
                     </div>
                   </div>
                 </div>
@@ -86,14 +98,14 @@
                 <div class="row">
                   <div class="col-md-6 mb-4">
                     <div class="form-outline">
-                      <label class="form-label" for="form3Example1">Email</label>
-                      <input type="text" id="form3Example1" class="form-control" value="evandrolima@hotmail.com" />
+                      <label class="form-label" for="">Email</label>
+                      <input type="text" id="email-input" class="form-control" value="" />
                     </div>
                   </div>
                   <div class="col-md-6 mb-4">
                     <div class="form-outline">
-                      <label class="form-label" for="form3Example2">CNPJ</label>
-                      <input type="text" id="form3Example2" class="form-control" value="49.996.562/0001-26"
+                      <label class="form-label" for="">CNPJ/CPF</label>
+                      <input type="text" id="cpf-cnpj-input" maxlength="17" class="form-control" value=""
                         placeholder="00.000.000/0000-00" />
                     </div>
                   </div>
@@ -102,15 +114,15 @@
                 <div class="row">
                   <div class="col-md-6 mb-4">
                     <div class="form-outline">
-                      <label class="form-label" for="form3Example1">Telefone</label>
-                      <input type="text" id="form3Example1" class="form-control" value="(85) 99999-9999"
+                      <label class="form-label" for="">Telefone</label>
+                      <input type="text" id="telefone-input" class="form-control" value=""
                         placeholder="(99) 99999-9999" />
                     </div>
                   </div>
                   <div class="col-md-6 mb-4">
                     <div class="form-outline">
-                      <label class="form-label" for="form3Example2">Telefone 2</label>
-                      <input type="text" id="form3Example2" class="form-control" value="(85) 99999-9999"
+                      <label class="form-label" for="">Telefone 2</label>
+                      <input type="text" id="telefone2-input" class="form-control" value=""
                         placeholder="(99) 99999-9999" />
                     </div>
                   </div>
@@ -118,12 +130,12 @@
                 <!-- Senha -->
                 <div class="mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="form3Example2">Senha</label>
-                    <input type="password" id="form3Example2" class="form-control" />
+                    <label class="form-label" for="">Senha</label>
+                    <input type="password" id="senha-input" class="form-control" />
                   </div>
                 </div>
                 <!-- button -->
-                <button class="btn btn-success btn-lg btn-block" type="submit">Editar</button>
+                <button class="btn btn-success btn-lg btn-block" type="button" onclick="updateUsuario()">Editar</button>
             </div>
             </form>
           </div>
@@ -152,7 +164,202 @@
   </footer>
   <!-- End Footer -->
 
+  <script>
+    function logout() {
+      localStorage.clear();
+      window.location.href = "/Index.html"
+    }
 
+    function getUsuario() {
+      var userId = localStorage.getItem('id');
+
+      axios.get('http://localhost:3000/api/users/' + userId)
+        .then(function (response) {
+          localStorage.setItem('nome', response.data.nome);
+          localStorage.setItem('email', response.data.email);
+          localStorage.setItem('senha', response.data.senha);
+          localStorage.setItem('AccessLevel', response.data.AccessLevel);
+          localStorage.setItem('imagem', response.data.imagem !== null ? 'http://localhost:3000/uploads/' + response.data.imagem : 'https://digimedia.web.ua.pt/wp-content/uploads/2017/05/default-user-image.png');
+          localStorage.setItem('cpf_cnpj', response.data.cpf_cnpj);
+          localStorage.setItem('telefone', response.data.telefone);
+          localStorage.setItem('telefone2', response.data.telefone2);
+
+
+          //cpf-cnpj-input
+
+          var imagemInput = document.getElementById('imagem-input');
+          var nomeInput = document.getElementById('nome-input');
+          var sobrenomeInput = document.getElementById('sobrenome-input');
+          var emailInput = document.getElementById('email-input');
+          var senhaInput = document.getElementById('senha-input');
+          var telefoneInput = document.getElementById('telefone-input');
+          var telefone2Input = document.getElementById('telefone2-input');
+          var cpfCnpjInput = document.getElementById('cpf-cnpj-input');
+
+
+          imagemInput.src = response.data.imagem !== null ? 'http://localhost:3000/uploads/' + response.data.imagem : 'https://digimedia.web.ua.pt/wp-content/uploads/2017/05/default-user-image.png';
+          nomeInput.value = response.data.nome;
+          sobrenomeInput.value = response.data.sobrenome;
+          emailInput.value = response.data.email;
+          senhaInput.value = response.data.senha;
+          telefoneInput.value = formatarTelefone(response.data.telefone);
+          telefone2Input.value = formatarTelefone(response.data.telefone2);
+          cpfCnpjInput.value = formatarCpfCnpj(response.data.cpf_cnpj);
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+
+    function updateUsuario() {
+
+      var file = document.getElementById('fileInput').files[0];
+      var nomeInput = document.getElementById('nome-input').value;
+      var sobrenomeInput = document.getElementById('sobrenome-input').value;
+      var emailInput = document.getElementById('email-input').value;
+      var senhaInput = document.getElementById('senha-input').value;
+      var telefoneInput = document.getElementById('telefone-input').value;
+      var telefone2Input = document.getElementById('telefone2-input').value;
+      var cpfCnpjInput = document.getElementById('cpf-cnpj-input').value;
+
+
+
+      userId = localStorage.getItem('id');
+
+      // var nome = document.getElementById('nomeCadastro').value;
+
+
+      if (emailInput !== null && senhaInput !== null && nomeInput !== null) {
+        var formData = new FormData(); // Cria um objeto FormData para enviar o arquivo
+
+        formData.append('imagem', file);
+        formData.append('nome', nomeInput);
+        formData.append('sobrenome', sobrenomeInput);
+        formData.append('email', emailInput);
+        formData.append('senha', senhaInput);
+        formData.append('telefone', removerMascara(telefoneInput));
+        formData.append('telefone2', removerMascara(telefone2Input));
+        formData.append('cpf_cnpj', removerMascara(cpfCnpjInput));
+
+
+        axios.put('http://localhost:3000/api/users/' + userId, formData)
+          .then(function (response) {
+            exibirAlertDialog('Usuario editado!');
+            localStorage.setItem('nome', response.data.nome);
+            localStorage.setItem('sobrenome', response.data.sobrenome);
+            localStorage.setItem('email', response.data.email);
+            localStorage.setItem('senha', response.data.senha);
+            localStorage.setItem('AccessLevel', response.data.AccessLevel);
+            localStorage.setItem('imagem', response.data.imagem !== null ? 'http://localhost:3000/uploads/' + response.data.imagem : 'https://digimedia.web.ua.pt/wp-content/uploads/2017/05/default-user-image.png');
+            localStorage.setItem('cpf_cnpj', response.data.cpf_cnpj);
+            localStorage.setItem('telefone', response.data.telefone);
+            localStorage.setItem('telefone2', response.data.telefone2);
+
+
+            var imagemInput = document.getElementById('imagem-input');
+            var nomeInput = document.getElementById('nome-input');
+            var sobrenomeInput = document.getElementById('sobrenome-input');
+            var emailInput = document.getElementById('email-input');
+            var senhaInput = document.getElementById('senha-input');
+            var telefoneInput = document.getElementById('telefone-input');
+            var telefone2Input = document.getElementById('telefone2-input');
+            var cpfCnpjInput = document.getElementById('cpf-cnpj-input');
+
+
+            imagemInput.src = response.data.imagem !== null ? 'http://localhost:3000/uploads/' + response.data.imagem : 'https://digimedia.web.ua.pt/wp-content/uploads/2017/05/default-user-image.png';
+            nomeInput.value = response.data.nome;
+            sobrenomeInput.value = response.data.sobrenome;
+            emailInput.value = response.data.email;
+            senhaInput.value = response.data.senha;
+            telefoneInput.value = formatarTelefone(response.data.telefone);
+            telefone2Input.value = formatarTelefone(response.data.telefone2);
+            cpfCnpjInput.value = formatarCpfCnpj(response.data.cpf_cnpj);
+
+          })
+          .catch(function (error) {
+            console.error(error);
+          });
+
+      }
+    }
+
+    function exibirAlertDialog(mensagem) {
+      var modalAlert = document.getElementById('modalAlert');
+      var messageSpan = document.getElementById('messageSpan');
+
+      modalAlert.className = 'alert alert-success alert-dismissible fade show';
+      messageSpan.textContent = mensagem ?? '';
+
+
+      setTimeout(function () {
+        modalAlert.className = 'alert alert-success alert-dismissible fade';
+      }, 5000);
+    }
+
+    document.getElementById('fileInput').addEventListener('change', function (e) {
+      var file = e.target.files[0];
+      var previewImage = document.getElementById('imagem-input');
+
+      var reader = new FileReader();
+      reader.onload = function (event) {
+        previewImage.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+    var telefoneInput = document.getElementById('telefone-input');
+    var telefone2Input = document.getElementById('telefone2-input');
+    var cpfCnpjInput = document.getElementById('cpf-cnpj-input');
+
+
+    telefoneInput.addEventListener('input', function () {
+      var numeroTelefone = telefoneInput.value;
+      var telefoneFormatado = formatarTelefone(numeroTelefone);
+
+      telefoneInput.value = telefoneFormatado;
+    });
+
+    telefone2Input.addEventListener('input', function () {
+      var numeroTelefone2 = telefone2Input.value;
+      var telefone2Formatado = formatarTelefone(numeroTelefone2);
+
+      telefone2Input.value = telefone2Formatado;
+    });
+
+    cpfCnpjInput.addEventListener('input', function () {
+      var numerocpfCnpj = cpfCnpjInput.value;
+      var cpfCnpjFormatado = formatarCpfCnpj(numerocpfCnpj);
+
+      cpfCnpjInput.value = cpfCnpjFormatado;
+    });
+
+    function formatarTelefone(telefone) {
+      var numeros = telefone.replace(/\D/g, '');
+
+      var padrao = /(\d{2})(\d{5})(\d{4})/;
+      var resultado = numeros.replace(padrao, '($1) $2-$3');
+
+      return resultado;
+    }
+
+    function formatarCpfCnpj(numero) {
+      var numeros = numero.replace(/\D/g, '');
+
+      if (numeros.length === 11) {
+        return numeros.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+      }
+      else if (numeros.length === 14) {
+        return numeros.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+      }
+      else {
+        return numero;
+      }
+    }
+
+    function removerMascara(numero) {
+      var numeros = numero.replace(/\D/g, '');
+      return numeros;
+    }
+  </script>
   <!-- Vendor JS Files -->
   <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
