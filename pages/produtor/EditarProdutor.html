@@ -52,10 +52,12 @@
         style='font-size:32px;color:white; margin-right: 32px; cursor: pointer;'></i>
     </div>
   </nav>
+
   <div id="modalAlert" class="alert alert-success alert-dismissible fade"
     style="position:fixed; margin-top: 5rem; margin-left: 2rem;">
     <strong>Sucesso!</strong> <span id="messageSpan"></span>
   </div>
+  
   <div class="px-5" style="margin-top: 10rem;">
     <a href="HomeProdutor.html">Home</a> > <a>Editar Perfil</a>
   </div>
@@ -222,12 +224,7 @@
       var telefone2Input = document.getElementById('telefone2-input').value;
       var cpfCnpjInput = document.getElementById('cpf-cnpj-input').value;
 
-
-
       userId = localStorage.getItem('id');
-
-      // var nome = document.getElementById('nomeCadastro').value;
-
 
       if (emailInput !== null && senhaInput !== null && nomeInput !== null) {
         var formData = new FormData(); // Cria um objeto FormData para enviar o arquivo
@@ -240,11 +237,16 @@
         formData.append('telefone', removerMascara(telefoneInput));
         formData.append('telefone2', removerMascara(telefone2Input));
         formData.append('cpf_cnpj', removerMascara(cpfCnpjInput));
-
-
+        
+        //Requisição com o metodo PUT
         axios.put('http://localhost:3000/api/users/' + userId, formData)
+
+        //só entra no THEN quando a requisição dá certo
           .then(function (response) {
+
+            // ao entra eu chamo a função exibirAlertDialog e coloco a mensagem de sucesso
             exibirAlertDialog('Usuario editado!');
+
             localStorage.setItem('nome', response.data.nome);
             localStorage.setItem('sobrenome', response.data.sobrenome);
             localStorage.setItem('email', response.data.email);

@@ -16,11 +16,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="	https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&display=swap" rel="stylesheet"> -->
-
+    <!-- Inclua os arquivos CSS do jQuery e do Select2 -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
 
     <!-- Vendor CSS Files -->
     <link href="/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
@@ -29,10 +29,6 @@
     <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
     <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
     <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-    <style>
-
-    </style>
 </head>
 
 <body>
@@ -49,7 +45,10 @@
         </div>
     </nav>
     <!-- Fim da Navbar -->
-
+    <div id="modalAlert" class="alert alert-warning alert-dismissible fade"
+        style="position:fixed; margin-top: 10rem; margin-left: 2rem; z-index: 99999;">
+        <span id="messageSpan"></span>
+    </div>
     <div class="px-5 py-3" style="margin-top: 10rem;">
         <h1 class="">Meus Eventos</h1>
         <a href="HomeProdutor.html">Home</a> > <a>Meus Eventos</a>
@@ -73,135 +72,497 @@
 
                 <!--Table body-->
                 <tbody>
-                    <tr>
-                        <th scope="row">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="tableDefaultCheck1">
-                            </div>
-                        </th>
-                        <td>dd/mm/aaaa</td>
-                        <td>METALEIROS DA IBM - Fortaleza/CE</td>
-                        <td>
-                            <button type="button" class="btn btn-sm m-0"
-                                style="background-color: #198754; color: #fff;">PUBLICAR</button>
-                            <button type="button" class="btn btn-sm m-0"
-                                style="background-color: #0D6EFD; color: #fff;">EDITAR</button>
-                            <button type="button" class="btn btn-sm m-0"
-                                style="background-color: #fc0000; color: #fff;">CANCELAR</button>
-                            <button type="button" class="btn btn-sm m-0"
-                                style="background-color: #393c41; color: #fff;">DELETAR</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="tableDefaultCheck1">
-                            </div>
-                        </th>
-                        <td>dd/mm/aaaa</td>
-                        <td>FLOW in Concert - Fortaleza/CE</td>
-                        <td>
-                            <button type="button" class="btn btn-sm m-0"
-                                style="background-color: #198754; color: #fff;">PUBLICAR</button>
-                            <button type="button" class="btn btn-sm m-0"
-                                style="background-color: #0D6EFD; color: #fff;">EDITAR</button>
-                            <button type="button" class="btn btn-sm m-0"
-                                style="background-color: #fc0000; color: #fff;">CANCELAR</button>
-                            <button type="button" class="btn btn-sm m-0"
-                                style="background-color: #393c41; color: #fff;">DELETAR</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="tableDefaultCheck1">
-                            </div>
-                        </th>
-                        <td>dd/mm/aaaa</td>
-                        <td>Gloria Groove - Fortaleza/CE</td>
-                        <td>
-                            <button type="button" class="btn btn-sm m-0"
-                                style="background-color: #198754; color: #fff;">PUBLICAR</button>
-                            <button type="button" class="btn btn-sm m-0"
-                                style="background-color: #0D6EFD; color: #fff;">EDITAR</button>
-                            <button type="button" class="btn btn-sm m-0"
-                                style="background-color: #fc0000; color: #fff;">CANCELAR</button>
-                            <button type="button" class="btn btn-sm m-0"
-                                style="background-color: #393c41; color: #fff;">DELETAR</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="tableDefaultCheck1">
-                            </div>
-                        </th>
-                        <td>dd/mm/aaaa</td>
-                        <td>Pitty Tournê Nordeste - Fortaleza/CE</td>
-                        <td>
-                            <button type="button" class="btn btn-sm m-0"
-                                style="background-color: #198754; color: #fff;">PUBLICAR</button>
-                            <button type="button" class="btn btn-sm m-0"
-                                style="background-color: #0D6EFD; color: #fff;">EDITAR</button>
-                            <button type="button" class="btn btn-sm m-0"
-                                style="background-color: #fc0000; color: #fff;">CANCELAR</button>
-                            <button type="button" class="btn btn-sm m-0"
-                                style="background-color: #393c41; color: #fff;">DELETAR</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="tableDefaultCheck1">
-                            </div>
-                        </th>
-                        <td>dd/mm/aaaa</td>
-                        <td>Zimbra Tournê “Sala 2” - Fortaleza/CE</td>
-                        <td>
-                            <button type="button" class="btn btn-sm m-0"
-                                style="background-color: #198754; color: #fff;">PUBLICAR</button>
-                            <button type="button" class="btn btn-sm m-0"
-                                style="background-color: #0D6EFD; color: #fff;">EDITAR</button>
-                            <button type="button" class="btn btn-sm m-0"
-                                style="background-color: #fc0000; color: #fff;">CANCELAR</button>
-                            <button type="button" class="btn btn-sm m-0"
-                                style="background-color: #393c41; color: #fff;">DELETAR</button>
-                        </td>
-                    </tr>
-
+                    <!-- As linhas da tabela serão adicionadas dinamicamente pelo JavaScript -->
                 </tbody>
                 <!--Table body-->
-
-
             </table>
             <!--Table-->
         </div>
-        </section>
+    </div>
+    <!-- Modal de confirmação -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationModalLabel">Confirmação</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Deseja realmente deletar este evento?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="deleteEventButton">Deletar</button>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <div class="modal fade" style="z-index: 9999;" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
+        aria-hidden="true">
 
-    <!-- ======= Footer ======= -->
-    <footer id="footer">
-        <div class="container">
-            <a href="/Index.html">
-                <img src="/assets/img/Logo.png" alt="Logo" width="120" class="d-inline-block align-text-top mx-5 my-2">
-            </a>
-            <div class="social-links">
-                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Editar Evento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editEventForm">
+                        <div class="mb-4">
+                            <div class="form-outline">
+                                <label class="form-label" for="eventoTitulo">Título do Evento</label>
+                                <input type="text" id="eventoTitulo" class="form-control"
+                                    placeholder="Título do Evento" />
+                                <input id="eventoId" hidden />
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="form-outline">
+                                <label class="form-label" for="selectCategoria">Categoria do Evento</label>
+                                <div style="display: flex; flex-direction: row;">
+                                    <select style="width: 100%; height: 2rem;" id="selectCategoria"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="form-outline">
+                                <label class="form-label" for="eventoDescricao">Descrição do Evento</label>
+                                <div style="display: flex; flex-direction: row;">
+                                    <textarea style="width: 100%;" id="eventoDescricao"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Imagem  -->
+                        <!-- <div class="mb-4">
+                            <div class="form-outline">
+                                <label class="form-label" for="inputImagem">Imagem do Evento</label>
+                                <div class="file-upload-wrapper">
+                                    <input type="file" id="inputImagem" class="file-upload" />
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="mb-4">
+                            <div class="form-outline">
+                                <label class="form-label" for="inputImagem">Imagem do Evento</label>
+                                <div class="file-upload-wrapper">
+                                    <input type="file" id="inputImagem" class="file-upload"
+                                        onchange="previewImage(event)" />
+                                </div>
+                                <div class="image-preview">
+                                    <img id="imagePreview" src="#" alt="Pré-visualização da Imagem"
+                                        style="max-width: 100%; max-height: 200px; margin-top: 10px; display: none;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="form-outline">
+                                <label class="form-label" for="eventoData">Data do Evento</label>
+                                <input type="date" id="eventoData" class="form-control" placeholder="DD/MM/AAAA" />
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="form-outline">
+                                <label class="form-label" for="publicoEstimado">Público Estimado</label>
+                                <input type="number" id="publicoEstimado" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div style="display: flex; flex-direction: column;" class="form-outline">
+                                <label class="form-label" for="localEvento">Local do Evento</label>
+                                <div style="display: flex; flex-direction: row;">
+                                    <div style="width: 95%; z-index: 99999;">
+                                        <select style="width: 100%; z-index: 99999;" id="localEvento" multiple></select>
+                                    </div>
+                                    <div style="width: 10%; margin-left: 10px;">
+                                        <a href="#myModalCadastro" class="trigger-btn" data-toggle="modal">
+                                            <button type="button"
+                                                style="right: 0; top: 0;background-color: #2C97EB;color: #fff;border: none;padding: 5px 10px;cursor: pointer;">
+                                                + </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Horário do Evento -->
+                        <div class="row">
+                            <label class="form-label" for="eventoHorario">Horário do Evento</label>
+                            <div class="col-md-3 mb-4">
+                                <div class="form-outline">
+                                    <input type="time" id="eventoHorarioInicio" min="00:00" max="24:00" required>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-4">
+                                <div class="form-outline">
+                                    <input type="time" id="eventoHorarioFinal" min="00:00" max="24:00" required>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="text-center">
+                            <button class="btn btn-lg btn-block" onclick="editarEvento()"
+                                style="background-color: #2C97EB; color: #FFF;" type="button">Editar</button>
+                        </div> -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" onclick="editarEvento()" class="btn btn-primary"
+                        id="saveEventButton">Salvar</button>
+                </div>
             </div>
-            <div class="copyright"> Copyright <strong><span>Simbora</span></strong>. All Rights Reserved</div>
         </div>
-    </footer>
-    <!-- End Footer -->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Inclua os arquivos JavaScript do jQuery e do Select2 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
     <script>
+        // Chamar a função para carregar os dados ao carregar a página
+        window.onload = carregar;
+
+        function carregar() {
+            carregarDadosSelectLocal();
+            carregarOptions();
+        }
+
+        $(document).ready(function () {
+            $("#localEvento").select2();
+        });
+
+        // Função para buscar os eventos do usuário
+        function fetchUserEvents() {
+            const userId = localStorage.getItem('id');
+
+            axios.get(`http://localhost:3000/api/event/usuario/${userId}`)
+                .then(response => {
+                    const events = response.data;
+
+                    // Limpa a tabela de eventos
+                    const tableBody = document.querySelector('tbody');
+                    tableBody.innerHTML = '';
+
+                    // Popula a tabela com os eventos retornados
+                    events.forEach((event, index) => {
+                        const row = document.createElement('tr');
+
+                        // Número do evento
+                        const eventNumber = document.createElement('th');
+                        eventNumber.scope = 'row';
+                        eventNumber.textContent = index + 1;
+                        row.appendChild(eventNumber);
+
+                        // Data do evento
+                        const eventData = document.createElement('td');
+                        eventData.textContent = formatDateString(event.data);
+                        row.appendChild(eventData);
+
+                        // Nome do evento
+                        const eventTitle = document.createElement('td');
+                        eventTitle.textContent = event.titulo;
+                        row.appendChild(eventTitle);
+
+                        // Ações
+                        const actions = document.createElement('td');
+
+                        // Botão de publicar
+                        // const publishButton = document.createElement('button');
+                        // publishButton.type = 'button';
+                        // publishButton.className = 'btn btn-success btn-sm';
+                        // publishButton.textContent = 'PUBLICAR';
+                        // actions.appendChild(publishButton);
+
+                        // Botão de editar
+                        const editButton = document.createElement('button');
+                        editButton.type = 'button';
+                        editButton.className = 'btn btn-primary btn-sm ms-2';
+                        editButton.textContent = 'EDITAR';
+                        editButton.addEventListener('click', function () {
+                            // Define os dados do evento como valores nos campos do modal de edição
+                            // console.log("http://localhost:3000/uploads/" + event.imagem.replace(/ /g, '%20'));
+
+                            document.getElementById('eventoTitulo').value = event.titulo;
+                            document.getElementById('selectCategoria').value = event.categoria;
+                            document.getElementById('eventoDescricao').value = event.descricao;
+
+                            document.getElementById('imagePreview').src = 'http://localhost:3000/uploads/' + event.imagem.replace(/ /g, '%20');
+                            document.getElementById('imagePreview').style.display = 'block';
+                            document.getElementById('eventoData').value = (event.data).replace("T00:00:00.000Z", "");
+                            document.getElementById('publicoEstimado').value = event.publico_estimado;
+                            document.getElementById('localEvento').value = event.locais;
+                            document.getElementById('eventoHorarioInicio').value = event.horario_inicio;
+                            document.getElementById('eventoHorarioFinal').value = event.horario_fim;
+
+                            document.getElementById('eventoId').value = event._id;
+
+                            // Abre o modal de edição
+                            const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+                            editModal.show();
+                        });
+                        actions.appendChild(editButton);
+
+                        row.appendChild(actions);
+
+                        // Botão de deletar
+                        const deleteButton = document.createElement('button');
+                        deleteButton.type = 'button';
+                        deleteButton.className = 'btn btn-danger btn-sm ms-2';
+                        deleteButton.textContent = 'DELETAR';
+                        deleteButton.addEventListener('click', function () {
+                            // Define o ID do evento a ser deletado como atributo do botão de deletar
+                            deleteButton.setAttribute('data-event-id', event._id);
+                            document.getElementById('eventoId').value = event._id;
+                            // Abre o modal de confirmação
+                            const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+                            confirmationModal.show();
+                        });
+                        actions.appendChild(deleteButton);
+
+                        row.appendChild(actions);
+
+                        // Adiciona a linha à tabela
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert('Erro ao buscar eventos do usuário.');
+                });
+        }
+
+        function editarEvento() {
+
+            const tituloEvento = document.getElementById('eventoTitulo').value;
+            const categoriaEvento = document.getElementById('selectCategoria').value;
+            const descricaoEvento = document.getElementById('eventoDescricao').value;
+            // const imagemEvento = document.getElementById('inputImagem').files[0];
+            const dataEvento = document.getElementById('eventoData').value;
+            const localEvento = $("#localEvento").val();
+            const horarioInicioEvento = document.getElementById('eventoHorarioInicio').value;
+            const horarioFinalEvento = document.getElementById('eventoHorarioFinal').value;
+            const publicoEstimado = document.getElementById('publicoEstimado').value;
+            const eventoId = document.getElementById('eventoId').value;
+
+
+
+            userId = localStorage.getItem('id');
+
+            if (tituloEvento !== undefined && categoriaEvento !== undefined && descricaoEvento !== undefined &&
+                dataEvento !== undefined && horarioInicioEvento !== undefined && horarioFinalEvento !== undefined &&
+                publicoEstimado !== undefined) {
+
+                var formData = new FormData(); // Cria um objeto FormData para enviar o arquivo
+
+                formData.append('titulo', tituloEvento);
+                formData.append('categoria', categoriaEvento);
+                formData.append('descricao', descricaoEvento);
+                // formData.append('imagem', imagemEvento);
+                formData.append('data', dataEvento);
+                localEvento.forEach((local, index) => {
+                    formData.append(`locais[${index}]`, local);
+                });
+                formData.append('horario_inicio', horarioInicioEvento);
+                formData.append('horario_fim', horarioFinalEvento);
+                formData.append('usuario_id', userId);
+                formData.append('publico_estimado', publicoEstimado);
+
+                axios.put('http://localhost:3000/api/event/' + eventoId, formData)
+                    .then(function (response) {
+                        exibirAlertDialog('Evento editado com Sucesso!');
+
+                        const tituloEvento = document.getElementById('eventoTitulo');
+                        const categoriaEvento = document.getElementById('selectCategoria');
+                        const descricaoEvento = document.getElementById('eventoDescricao');
+                        const imagemEvento = document.getElementById('inputImagem');
+                        const dataEvento = document.getElementById('eventoData');
+                        const localEvento = $("#localEvento");
+                        const horarioInicioEvento = document.getElementById('eventoHorarioInicio');
+                        const horarioFinalEvento = document.getElementById('eventoHorarioFinal');
+                        const publicoEstimado = document.getElementById('publicoEstimado');
+
+
+                        // Limpa os campos de entrada de texto
+                        tituloEvento.value = '';
+                        descricaoEvento.value = '';
+                        dataEvento.value = '';
+                        horarioInicioEvento.value = '';
+                        horarioFinalEvento.value = '';
+                        publicoEstimado.value = '';
+
+                        // Limpa os campos de seleção
+                        categoriaEvento.selectedIndex = 0;
+
+                        // Limpa o campo de imagem
+                        imagemEvento.value = '';
+
+                        // Limpa o campo de localEvento usando jQuery
+                        localEvento.val('');
+
+                        const modal = document.getElementById('editModal');
+                        modal.classList.remove('show');
+                        modal.style.display = 'none';
+                        document.body.classList.remove('modal-open');
+                        const backdrop = document.getElementsByClassName('modal-backdrop')[0];
+                        backdrop.parentNode.removeChild(backdrop);
+                        // location.reload();
+                        fetchUserEvents();
+                    })
+                    .catch(function (error) {
+                        console.error(error);
+                    });
+
+            } else {
+                exibirAlertDialog('preencha todos os campos do formulário.');
+            }
+        }
+
+        function exibirAlertDialog(mensagem) {
+            var modalAlert = document.getElementById('modalAlert');
+            var messageSpan = document.getElementById('messageSpan');
+
+            modalAlert.className = 'alert alert-warning alert-dismissible fade show';
+            messageSpan.textContent = mensagem ?? '';
+
+
+            setTimeout(function () {
+                modalAlert.className = 'alert alert-warning alert-dismissible fade';
+            }, 5000);
+        }
+
+        // Função para formatar a data no formato DD/MM/AAAA
+        function formatDateString(dateString) {
+            const date = new Date(dateString);
+            const utcDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+            const day = String(utcDate.getDate()).padStart(2, '0');
+            const month = String(utcDate.getMonth() + 1).padStart(2, '0');
+            const year = utcDate.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        // Função para deletar um evento
+        function deleteEvent(eventId) {
+            axios.delete(`http://localhost:3000/api/event/${eventId}`)
+                .then(() => {
+                    // Fecha o modal de confirmação
+                    const modal = document.getElementById('confirmationModal');
+                    modal.classList.remove('show');
+                    modal.style.display = 'none';
+                    document.body.classList.remove('modal-open');
+                    const backdrop = document.getElementsByClassName('modal-backdrop')[0];
+                    backdrop.parentNode.removeChild(backdrop);
+                    // Recarrega os eventos após a exclusão bem-sucedida
+                    fetchUserEvents();
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert('Erro ao deletar evento.');
+                });
+        }
+
+        // Captura o evento de clique no botão de deletar do modal de confirmação
+        document.getElementById('deleteEventButton').addEventListener('click', function () {
+            const eventoId = document.getElementById('eventoId').value;
+            deleteEvent(eventoId);
+        });
+
+        document.getElementById('editEventForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const eventId = document.getElementById('deleteEventButton').getAttribute('data-event-id');
+            const updatedEventDate = document.getElementById('editEventDate').value;
+            const updatedEventTitle = document.getElementById('editEventTitle').value;
+
+            // Realiza a requisição de atualização do evento
+            axios.put(`/eventos/${eventId}`, {
+                date: updatedEventDate,
+                title: updatedEventTitle
+            })
+                .then(() => {
+                    // Recarrega os eventos após a atualização bem-sucedida
+                    fetchUserEvents();
+                    // Fecha o modal de edição
+                    const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+                    editModal.hide();
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert('Erro ao atualizar evento.');
+                });
+        });
+
+        function popularMultiselect(data) {
+            const multiselect = document.getElementById('localEvento');
+            multiselect.innerHTML = '';
+
+            data.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item._id;
+                option.text = item.nome_local;
+                option.style.zIndex = '999999';
+                multiselect.appendChild(option);
+            });
+        }
+
+
+        async function carregarDadosSelectLocal() {
+            try {
+                const response = await axios.get('http://localhost:3000/api/location');
+                if (response.data) {
+                    popularMultiselect(response.data);
+                }
+            } catch (error) {
+                console.log('Erro ao carregar os dados:', error);
+            }
+        }
+
+        function carregarOptions() {
+            var select = document.getElementById("selectCategoria");
+
+            axios.get("http://localhost:3000/api/category")
+                .then(function (response) {
+                    var data = response.data;
+                    select.innerHTML = "";
+
+                    for (var i = 0; i < data.length; i++) {
+                        var option = document.createElement("option");
+                        option.text = data[i].nome;
+                        option.value = data[i]._id;
+                        select.add(option);
+                    }
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+        }
+
+        function previewImage(event) {
+            const input = event.target;
+            const preview = document.getElementById('imagePreview');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                preview.src = '#';
+                preview.style.display = 'none';
+            }
+        }
+
+        // Chamada inicial para buscar os eventos do usuário
+        fetchUserEvents();
+
         function logout() {
             localStorage.clear();
             window.location.href = "/Index.html"
         }
+
     </script>
 
     <!-- Vendor JS Files -->

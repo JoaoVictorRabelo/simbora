@@ -16,10 +16,11 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
   <link rel="stylesheet" href="	https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-  <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&display=swap" rel="stylesheet"> -->
+  <!-- Inclua os arquivos CSS do jQuery e do Select2 -->
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
 
   <!-- Vendor CSS Files -->
   <link href="/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
@@ -48,81 +49,188 @@
     </div>
   </nav>
   <!-- Fim da Navbar -->
+  <div id="modalAlert" class="alert alert-warning alert-dismissible fade"
+    style="position:fixed; margin-top: 10rem; margin-left: 2rem; z-index: 99999;">
+    <span id="messageSpan"></span>
+  </div>
 
-  <div class="px-5 py-3" style="margin-top: 10rem;">
+  <div id="myModalCadastro" class="modal fade">
+    <div class="modal-dialog modal-login">
+      <div class="modal-content">
+        <div class="wrapper bg-white">
+          <div class="h2 text-center">Cadastrar Local</div>
+          <form class="pt-3 text-center">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group py-2">
+                  <div class="input-field">
+                    <input type="text" placeholder="Nome do Local" required id="nomeLocalCadastro" class="">
+                  </div>
+                </div>
+                <div class="form-group py-2">
+                  <div class="input-field">
+                    <input type="text" placeholder="CEP" required id="cepCadastro" class="" onblur="buscarEndereco()">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group py-2">
+                  <div class="input-field">
+                    <input type="text" placeholder="País" required id="paisCadastro" class="">
+                  </div>
+                </div>
+                <div class="form-group py-2">
+                  <div class="input-field">
+                    <input type="text" placeholder="Cidade" required id="cidadeCadastro" class="">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group py-2">
+                  <div class="input-field">
+                    <input type="text" placeholder="Estado" required id="estadoCadastro" class="">
+                  </div>
+                </div>
+                <div class="form-group py-2">
+                  <div class="input-field">
+                    <input type="text" placeholder="Bairro" required id="bairroCadastro" class="">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group py-2">
+                  <div class="input-field">
+                    <input type="text" placeholder="Logradouro" required id="logradouroCadastro" class="">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group py-2">
+                  <div class="input-field">
+                    <input type="text" placeholder="Número" required id="numeroCadastro" class="">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group py-2">
+                  <div class="input-field">
+                    <input type="text" placeholder="Complemento" id="complementoCadastro" class="">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="button" onclick="cadastrarLocal()" class="btn btn-block text-center my-3">Cadastrar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="px-5 " style="margin-top: 10rem;">
     <h1 class="">Adicionar Eventos</h1>
     <a href="HomeProdutor.html">Home</a> > <a>Adicionar Eventos</a>
   </div>
 
   <!-- Começo do Formulário -->
-  <section class="mt-5" style="background-color: #ffff;">
+  <section class="" style="background-color: #ffff;">
     <div class="container py-2">
-      <div class="row d-flex justify-content-center align-items-center mt-5">
+      <div class="row d-flex justify-content-center align-items-center">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
           <div class="card shadow-2-strong p-4" style="border-radius: 1rem; background-color: #F3EEEE;">
             <div class="card-body p-2 text-left">
               <form>
                 <div class="mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="form3Example2">Titulo do Evento</label>
-                    <input type="text" id="form3Example2" class="form-control" placeholder="Titulo do Evento" />
+                    <label class="form-label" for="eventoTitulo">Título do Evento</label>
+                    <input type="text" id="eventoTitulo" class="form-control" placeholder="Título do Evento" />
                   </div>
                 </div>
                 <div class="mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="form3Example2">Descrição do Evento</label>
-                    <input type="text" id="form3Example2" class="form-control" style="height: 5rem;"
-                      placeholder="Descrição do Evento" />
+                    <label class="form-label" for="selectCategoria">Categoria do Evento</label>
+                    <div style="display: flex; flex-direction: row;">
+                      <select style="width: 100%; height: 2rem;" id="selectCategoria"></select>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="eventoDescricao">Descrição do Evento</label>
+                    <div style="display: flex; flex-direction: row;">
+                      <textarea style="width: 100%;" id="eventoDescricao"></textarea>
+                    </div>
                   </div>
                 </div>
                 <!-- Imagem  -->
                 <div class="mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="input-file-now">Imagem do Evento</label>
+                    <label class="form-label" for="inputImagem">Imagem do Evento</label>
                     <div class="file-upload-wrapper">
-                      <input type="file" id="input-file-now" class="file-upload" />
+                      <input type="file" id="inputImagem" class="file-upload" />
                     </div>
                   </div>
                 </div>
                 <div class="mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="form3Example2">Data do Evento</label>
-                    <input type="date" id="form3Example2" class="form-control" placeholder="DD/MM/AAAA" />
+                    <label class="form-label" for="eventoData">Data do Evento</label>
+                    <input type="date" id="eventoData" class="form-control" placeholder="DD/MM/AAAA" />
                   </div>
                 </div>
                 <div class="mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="form3Example2">Local do Evento</label>
-                    <input type="text" id="form3Example2" class="form-control" placeholder="Local" />
+                    <label class="form-label" for="publicoEstimado">Público Estimado</label>
+                    <input type="number" id="publicoEstimado" class="form-control" />
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <div style="display: flex; flex-direction: column;" class="form-outline">
+                    <label class="form-label" for="localEvento">Local do Evento</label>
+                    <div style="display: flex; flex-direction: row;">
+                      <div style="width: 95%;">
+                        <select style="width: 100%;" id="localEvento" multiple></select>
+                      </div>
+                      <div style="width: 10%; margin-left: 10px;">
+                        <a href="#myModalCadastro" class="trigger-btn" data-toggle="modal">
+                          <button type="button"
+                            style="right: 0; top: 0;background-color: #2C97EB;color: #fff;border: none;padding: 5px 10px;cursor: pointer;">
+                            + </button>
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <!-- Horário do Evento -->
                 <div class="row">
-                  <label class="form-label" for="form3Example1">Horário do Evento</label>
+                  <label class="form-label" for="eventoHorario">Horário do Evento</label>
                   <div class="col-md-3 mb-4">
                     <div class="form-outline">
-                      <input type="text" id="form3Example1" class="form-control" placeholder="HH-MM" />
+                      <input type="time" id="eventoHorarioInicio" min="00:00" max="24:00" required>
                     </div>
                   </div>
                   <div class="col-md-3 mb-4">
                     <div class="form-outline">
-                      <input type="text" id="form3Example2" class="form-control" placeholder="HH-MM" />
+                      <input type="time" id="eventoHorarioFinal" min="00:00" max="24:00" required>
                     </div>
                   </div>
                 </div>
-                <!-- button -->
                 <div class="text-center">
-                  <button class="btn btn-lg btn-block" style="background-color: #2C97EB; color: #FFF;"
-                    type="submit">Enviar</button>
+                  <button class="btn btn-lg btn-block" onclick="cadastrarEvento()"
+                    style="background-color: #2C97EB; color: #FFF;" type="button">Cadastrar</button>
                 </div>
-
+              </form>
             </div>
-            </form>
           </div>
         </div>
       </div>
     </div>
   </section>
+
   <!-- Fim do Formulário -->
 
 
@@ -143,13 +251,265 @@
     </div>
   </footer>
   <!-- End Footer -->
+  <!-- Inclua os arquivos JavaScript do jQuery e do Select2 -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
 
   <script>
     function logout() {
-        localStorage.clear();
-        window.location.href = "/Index.html"
+      localStorage.clear();
+      window.location.href = "/Index.html"
     }
-</script>
+
+    // Chamar a função para carregar os dados ao carregar a página
+    window.onload = carregar;
+
+    function carregar() {
+      carregarDadosSelectLocal();
+      carregarOptions();
+    }
+
+    $(document).ready(function () {
+      $("#localEvento").select2();
+    });
+
+    function mostrarSelecionados() {
+      var selecionados = $("#localEvento").val();
+      console.log("selecionados => ", selecionados);
+      alert("Opções selecionadas: " + selecionados.join(", "));
+    }
+
+    // Função para buscar o endereço com base no CEP
+    async function buscarEndereco() {
+      const cep = document.getElementById('cepCadastro').value;
+      const url = `https://viacep.com.br/ws/${cep}/json/`;
+
+      try {
+        const response = await axios.get(url);
+
+        if (response.data) {
+          // Preencher os campos com os dados retornados
+          document.getElementById('paisCadastro').value = 'Brasil';
+          document.getElementById('cidadeCadastro').value = response.data.localidade;
+          document.getElementById('estadoCadastro').value = response.data.uf;
+          document.getElementById('bairroCadastro').value = response.data.bairro;
+          document.getElementById('logradouroCadastro').value = response.data.logradouro;
+        }
+      } catch (error) {
+        console.log('Erro ao buscar o endereço:', error);
+      }
+    }
+
+    function cadastrarLocal() {
+
+      const nomeLocalCadastro = document.getElementById('nomeLocalCadastro').value;
+      const cepCadastro = document.getElementById('cepCadastro').value;
+      const paisCadastro = document.getElementById('paisCadastro').value;
+      const cidadeCadastro = document.getElementById('cidadeCadastro').value;
+      const estadoCadastro = document.getElementById('estadoCadastro').value;
+      const bairroCadastro = document.getElementById('bairroCadastro').value;
+      const logradouroCadastro = document.getElementById('logradouroCadastro').value;
+      const numeroCadastro = document.getElementById('numeroCadastro').value;
+      const complementoCadastro = document.getElementById('complementoCadastro').value;
+
+
+      if (nomeLocalCadastro !== "" && cepCadastro !== "" && paisCadastro !== "" &&
+        cidadeCadastro !== "" && estadoCadastro !== "" && bairroCadastro !== "" &&
+        logradouroCadastro !== "" && numeroCadastro !== "") {
+
+        axios.post('http://localhost:3000/api/location', {
+          nome_local: nomeLocalCadastro,
+          cep: cepCadastro,
+          pais: paisCadastro,
+          cidade: cidadeCadastro,
+          estado: estadoCadastro,
+          bairro: bairroCadastro,
+          logradouro: logradouroCadastro,
+          numero: numeroCadastro,
+          complemento: complementoCadastro
+        })
+          .then(function (response) {
+            const modal = document.getElementById('myModalCadastro');
+            modal.classList.remove('show');
+            modal.style.display = 'none';
+            document.body.classList.remove('modal-open');
+            const backdrop = document.getElementsByClassName('modal-backdrop')[0];
+            backdrop.parentNode.removeChild(backdrop);
+
+            const nomeLocalCadastro = document.getElementById('nomeLocalCadastro');
+            const cepCadastro = document.getElementById('cepCadastro');
+            const paisCadastro = document.getElementById('paisCadastro');
+            const cidadeCadastro = document.getElementById('cidadeCadastro');
+            const estadoCadastro = document.getElementById('estadoCadastro');
+            const bairroCadastro = document.getElementById('bairroCadastro');
+            const logradouroCadastro = document.getElementById('logradouroCadastro');
+            const numeroCadastro = document.getElementById('numeroCadastro');
+            const complementoCadastro = document.getElementById('complementoCadastro');
+
+            //limpar os campos 
+            nomeLocalCadastro.value = ""
+            cepCadastro.value = ""
+            paisCadastro.value = ""
+            cidadeCadastro.value = ""
+            estadoCadastro.value = ""
+            bairroCadastro.value = ""
+            logradouroCadastro.value = ""
+            numeroCadastro.value = ""
+            complementoCadastro.value = ""
+
+            carregarDadosSelectLocal();
+          })
+          .catch(function (error) {
+            console.error(error);
+            exibirAlertDialog(error.response.data.error);
+          });
+      } else {
+        exibirAlertDialog('preencha todos os campos do formulário.');
+      }
+    }
+
+    function cadastrarEvento() {
+
+      const tituloEvento = document.getElementById('eventoTitulo').value;
+      const categoriaEvento = document.getElementById('selectCategoria').value;
+      const descricaoEvento = document.getElementById('eventoDescricao').value;
+      const imagemEvento = document.getElementById('inputImagem').files[0];
+      const dataEvento = document.getElementById('eventoData').value;
+      const localEvento = $("#localEvento").val();
+      const horarioInicioEvento = document.getElementById('eventoHorarioInicio').value;
+      const horarioFinalEvento = document.getElementById('eventoHorarioFinal').value;
+      const publicoEstimado = document.getElementById('publicoEstimado').value;
+
+
+      userId = localStorage.getItem('id');
+
+
+
+      if (tituloEvento !== undefined && categoriaEvento !== undefined && descricaoEvento !== undefined && imagemEvento !== undefined &&
+        dataEvento !== undefined && localEvento !== undefined && horarioInicioEvento !== undefined && horarioFinalEvento !== undefined &&
+        publicoEstimado !== undefined) {
+
+        var formData = new FormData(); // Cria um objeto FormData para enviar o arquivo
+
+        formData.append('titulo', tituloEvento);
+        formData.append('categoria', categoriaEvento);
+        formData.append('descricao', descricaoEvento);
+        formData.append('imagem', imagemEvento);
+        formData.append('data', dataEvento);
+        localEvento.forEach((local, index) => {
+          formData.append(`locais[${index}]`, local);
+        });
+        formData.append('horario_inicio', horarioInicioEvento);
+        formData.append('horario_fim', horarioFinalEvento);
+        formData.append('usuario_id', userId);
+        formData.append('publico_estimado', publicoEstimado);
+
+        axios.post('http://localhost:3000/api/event/', formData)
+          .then(function (response) {
+            exibirAlertDialog('Evento criado com Sucesso!');
+
+            const tituloEvento = document.getElementById('eventoTitulo');
+            const categoriaEvento = document.getElementById('selectCategoria');
+            const descricaoEvento = document.getElementById('eventoDescricao');
+            const imagemEvento = document.getElementById('inputImagem');
+            const dataEvento = document.getElementById('eventoData');
+            const localEvento = $("#localEvento");
+            const horarioInicioEvento = document.getElementById('eventoHorarioInicio');
+            const horarioFinalEvento = document.getElementById('eventoHorarioFinal');
+            const publicoEstimado = document.getElementById('publicoEstimado');
+
+            // Limpa os campos de entrada de texto
+            tituloEvento.value = '';
+            descricaoEvento.value = '';
+            dataEvento.value = '';
+            horarioInicioEvento.value = '';
+            horarioFinalEvento.value = '';
+            publicoEstimado.value = '';
+
+            // Limpa os campos de seleção
+            categoriaEvento.selectedIndex = 0;
+
+            // Limpa o campo de imagem
+            imagemEvento.value = '';
+
+            // Limpa o campo de localEvento usando jQuery
+            localEvento.val('');
+
+            setTimeout(function () {
+              location.reload();
+            }, 5000);
+
+          })
+          .catch(function (error) {
+            console.error(error);
+          });
+
+      } else {
+        exibirAlertDialog('preencha todos os campos do formulário.');
+      }
+    }
+
+    function exibirAlertDialog(mensagem) {
+      var modalAlert = document.getElementById('modalAlert');
+      var messageSpan = document.getElementById('messageSpan');
+
+      modalAlert.className = 'alert alert-warning alert-dismissible fade show';
+      messageSpan.textContent = mensagem ?? '';
+
+
+      setTimeout(function () {
+        modalAlert.className = 'alert alert-warning alert-dismissible fade';
+      }, 5000);
+    }
+
+
+    function popularMultiselect(data) {
+      const multiselect = document.getElementById('localEvento');
+      multiselect.innerHTML = '';
+
+      data.forEach(item => {
+        const option = document.createElement('option');
+        option.value = item._id;
+        option.text = item.nome_local;
+        multiselect.appendChild(option);
+      });
+    }
+
+    async function carregarDadosSelectLocal() {
+      try {
+        const response = await axios.get('http://localhost:3000/api/location');
+        if (response.data) {
+          popularMultiselect(response.data);
+        }
+      } catch (error) {
+        console.log('Erro ao carregar os dados:', error);
+      }
+    }
+
+    function carregarOptions() {
+      var select = document.getElementById("selectCategoria");
+
+      axios.get("http://localhost:3000/api/category")
+        .then(function (response) {
+          var data = response.data;
+          select.innerHTML = "";
+
+          for (var i = 0; i < data.length; i++) {
+            var option = document.createElement("option");
+            option.text = data[i].nome;
+            option.value = data[i]._id;
+            select.add(option);
+          }
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+
+  </script>
+
+
   <!-- Vendor JS Files -->
   <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>

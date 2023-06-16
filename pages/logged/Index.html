@@ -17,9 +17,7 @@
 
   <link rel="stylesheet" href="	https://use.fontawesome.com/releases/v5.7.2/css/all.css">
 
-  <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&display=swap" rel="stylesheet"> -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 
   <!-- Vendor CSS Files -->
@@ -31,12 +29,78 @@
   <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <style>
-    .bg-custom-1 {
-      background-color: #85144b;
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
-    .bg-custom-2 {
-      background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
+    #content {
+      flex: 1;
+    }
+
+    #footer {
+      padding: 20px 0;
+    }
+
+    .card-custom {
+      width: 19rem;
+      height: 22rem;
+      border-radius: 16px;
+    }
+
+    /*the container must be positioned relative:*/
+    .autocomplete {
+      position: relative;
+      display: inline-block;
+    }
+
+    input {
+      border: 1px solid transparent;
+      background-color: #fff;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    input[type=text] {
+      background-color: #fff;
+      width: 100%;
+    }
+
+    input[type=submit] {
+      background-color: DodgerBlue;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .autocomplete-items {
+      position: absolute;
+      border: 1px solid #fff;
+      border-bottom: none;
+      border-top: none;
+      z-index: 99;
+      /*position the autocomplete items to be the same width as the container:*/
+      top: 100%;
+      left: 0;
+      right: 0;
+    }
+
+    .autocomplete-items div {
+      padding: 10px;
+      cursor: pointer;
+      background-color: #fff;
+      border-bottom: 1px solid #d4d4d4;
+    }
+
+    /*when hovering an item:*/
+    /* .autocomplete-items div:hover {
+      background-color: #e9e9e9;
+    } */
+
+    /*when navigating through the items using the arrow keys:*/
+    .autocomplete-active {
+      background-color: DodgerBlue !important;
+      color: #ffffff;
     }
   </style>
 </head>
@@ -47,12 +111,17 @@
       <a href="/pages/logged/Index.html">
         <img src="/assets/img/Logo.png" alt="Logo" width="120" class="d-inline-block align-text-top mx-5">
       </a>
-      <div class="search-bar-body">
-        <div class="search-bar-content">
-          <i class="fa fa-search mx-2" aria-hidden="true"></i>
-          <input type="text" name="search" autocomplete="off" value=""
-            placeholder="Pesquisar eventos, shows, teatros, cursos..." class="search-bar-input">
-        </div>
+      <div style="display: flex;">
+        <form autocomplete="off" action="/pages/logged/pages/Search.html">
+          <div class="search-bar-body">
+            <div class="search-bar-content">
+              <button class="fa fa-search mx-2 autocomplete" type="submit"
+                style="flex-direction: row; background-color: #fff; border: #fff;" aria-hidden="true"></button>
+              <input type="text" id="myInput" name="Query" autocomplete="on" value=""
+                placeholder="Pesquisar eventos, shows, teatros, cursos..." class="search-bar-input">
+            </div>
+          </div>
+        </form>
       </div>
       <div class="collapse navbar-collapse mx-5" id="navbarNavDropdown">
         <ul class="navbar-nav ms-auto d-none d-lg-inline-flex">
@@ -96,11 +165,7 @@
                   required class=""> <button class="btn bg-white text-muted"> <span class="far fa-eye-slash"></span>
                 </button> </div>
             </div>
-            <div class="d-flex justify-content-between">
-              <div class="remember"> <label class="option text-muted"> lembre-me<input type="radio" name="radio"> <span
-                    class="checkmark"></span> </label> </div>
-              <div class="ml-auto"> <a href="#" class="text-decoration-none" id="forgot">Esqueceu a senha?</a> </div>
-            </div>
+
             <div class="text-center pt-3 text-muted">
               <a href="/pages/logged/Index.html">
                 <button type="button" class="btn btn-block text-center my-3">Entrar</button>
@@ -183,12 +248,7 @@
                       required class=""> <button class="btn bg-white text-muted"> <span class="far fa-eye-slash"></span>
                     </button> </div>
                 </div>
-                <div class="d-flex justify-content-between">
-                  <div class="remember"> <label class="option text-muted"> lembre-me<input type="radio" name="radio">
-                      <span class="checkmark"></span> </label> </div>
-                  <div class="ml-auto"> <a href="#" class="text-decoration-none" id="forgot">Esqueceu a senha?</a>
-                  </div>
-                </div>
+
                 <div class="text-center pt-3 text-muted">
                   <a href="pages/produtor/HomeProdutor.html">
                     <button type="button" class="btn btn-block text-center my-3">Entrar</button>
@@ -320,243 +380,37 @@
   <!-- End Hero -->
 
 
-  <!-- ======= Filmes Section ======= -->
   <section id="filmes" class="filmes">
     <div class="container">
-
       <div class="section-title">
         <h2>CATEGORIAS EM DESTAQUE</h2>
         <p>Os mais procurados</p>
       </div>
-
       <div class="card-slider swiper">
-        <div class="swiper-wrapper align-items-center">
-          <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="/assets/img/Igrejaaa.png"
-                style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-                alt="Imagem de capa do card">
-              <div class="card-body">
-                <h5 class="card-title">Religioso</h5>
-                <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                  cultos,
-                  congresso, culto de jovens e muito mais.</p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="/assets/img/cinemah.png"
-                style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-                alt="Imagem de capa do card">
-              <div class="card-body">
-                <h5 class="card-title">Cinema</h5>
-                <p class="card-text">Venha conferir os filmes incríveis que estão em cartaz no cinema. Temos opções
-                  para
-                  todos
-                  os gostos, desde as comédias até os dramas mais emocionantes.</p>
-                <a href="pages/Cinema.html" class="btn btn-primary">Ver mais</a>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="/assets/img/balada.png"
-                style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-                alt="Imagem de capa do card">
-              <div class="card-body">
-                <h5 class="card-title">Balada</h5>
-                <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                  cultos,
-                  congresso, culto de jovens e muito mais.</p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="/assets/img/TEATRO.png"
-                style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-                alt="Imagem de capa do card">
-              <div class="card-body">
-                <h5 class="card-title">Teatro</h5>
-                <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                  cultos,
-                  congresso, culto de jovens e muito mais.</p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="/assets/img/NatalDeLuz.png"
-                style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-                alt="Imagem de capa do card">
-              <div class="card-body">
-                <h5 class="card-title">Feiras</h5>
-                <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                  cultos,
-                  congresso, culto de jovens e muito mais.</p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="/assets/img/EventoInfantil.png"
-                style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-                alt="Imagem de capa do card">
-              <div class="card-body">
-                <h5 class="card-title">Infantis</h5>
-                <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                  cultos,
-                  congresso, culto de jovens e muito mais.</p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="/assets/img/Showss.webp"
-                style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-                alt="Imagem de capa do card">
-              <div class="card-body">
-                <h5 class="card-title">Shows</h5>
-                <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                  cultos,
-                  congresso, culto de jovens e muito mais.</p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-              <img class="card-img-top" src="/assets/img/MaedaEducacao.jfif"
-                style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-                alt="Imagem de capa do card">
-              <div class="card-body">
-                <h5 class="card-title">Educativos</h5>
-                <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                  cultos,
-                  congresso, culto de jovens e muito mais.</p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
-              </div>
-            </div>
-          </div>
+        <div id="cards-container" class="swiper-wrapper align-items-center">
         </div>
         <div class="swiper-pagination"></div>
       </div>
-
     </div>
-  </section><!-- End Filmes Section -->
+  </section>
 
 
+  <section id="filmes" class="filmes">
+    <div class="container">
+      <div class="section-title">
+        <h2>ADICIONADOS RECENTEMENTE</h2>
+        <!-- <p>Os mais procurados</p> -->
+      </div>
 
-  <!-- <div class="">
-    <div class="container row justify-content-center mb-3">
-      <div class="col-md-7">
-        <h1 class="mb-6">
-          Categorias
-        </h1>
+      <div class="card-slider swiper">
+        <div id="cardsEvent-container" class="swiper-wrapper align-items-center">
+        </div>
+        <div class="swiper-pagination"></div>
       </div>
     </div>
+  </section>
 
-    <div class="secound-slider">
-      <section class="regular slider">
-        <div>
-          <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-            <img class="card-img-top" src="IMG/Igrejaaa.png"
-              style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-              alt="Imagem de capa do card">
-            <div class="card-body">
-              <h5 class="card-title">Religioso</h5>
-              <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                cultos,
-                congresso, culto de jovens e muito mais.</p>
-              <a href="#" class="btn btn-primary mt-4">Ver mais</a>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-            <img class="card-img-top" src="IMG/cinemah.png"
-              style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-              alt="Imagem de capa do card">
-            <div class="card-body">
-              <h5 class="card-title">Cinema</h5>
-              <p class="card-text">Venha conferir os filmes incríveis que estão em cartaz no cinema. Temos opções
-                para
-                todos
-                os gostos, desde as comédias até os dramas mais emocionantes.</p>
-              <a href="CategoriaDoCinema.html" class="btn btn-primary">Ver mais</a>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-            <img class="card-img-top" src="IMG/TEATRO.png"
-              style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-              alt="Imagem de capa do card">
-            <div class="card-body">
-              <h5 class="card-title">Teatro</h5>
-              <p class="card-text">Venha conferir as peças incríveis que estão em cartaz no teatro. Temos opções
-                para
-                todos
-                os gostos, desde as comédias até os dramas mais emocionantes. </p>
-              <a href="#" class="btn btn-primary">Ver mais</a>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-            <img class="card-img-top" src="IMG/balada.png"
-              style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-              alt="Imagem de capa do card">
-            <div class="card-body">
-              <h5 class="card-title">Shows</h5>
-              <p class="card-text">Venha conferir os eventos noturnos que estão disponível na plataforma. E será uma
-                noite
-                de muita diversão, música boa e dança até o amanhecer!
-              <p>
-                <a href="#" class="btn btn-primary mt-4">Ver mais</a>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-            <img class="card-img-top" src="IMG/Igrejaaa.png"
-              style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-              alt="Imagem de capa do card">
-            <div class="card-body">
-              <h5 class="card-title">Religioso</h5>
-              <p class="card-text">Venha conferir o que está dísponiveis na nossa plataforma. Temos opções para
-                cultos,
-                congresso, culto de jovens e muito mais.</p>
-              <a href="#" class="btn btn-primary mt-4">Ver mais</a>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="card" style="width: 19rem; border-radius: 12px; height: 100%;">
-            <img class="card-img-top" src="IMG/cinemah.png"
-              style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
-              alt="Imagem de capa do card">
-            <div class="card-body">
-              <h5 class="card-title">Cinema</h5>
-              <p class="card-text">Venha conferir os filmes incríveis que estão em cartaz no cinema. Temos opções
-                para
-                todos
-                os gostos, desde as comédias até os dramas mais emocionantes.</p>
-              <a href="CategoriaDoCinema.html" class="btn btn-primary">Ver mais</a>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  </div> -->
 
-  <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="container justify-content-center">
       <a href="/pages/logged/Index.html">
@@ -583,6 +437,244 @@
       localStorage.clear();
       window.location.href = "/Index.html"
     }
+
+    // Função para criar os cards das categorias
+    function createCategoryCard(categoria) {
+      const slide = document.createElement('div');
+      slide.classList.add('swiper-slide');
+
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.classList.add('card-custom');
+
+      const img = document.createElement('img');
+      img.classList.add('card-img-top');
+      img.src = "http://localhost:3000/uploads/" + categoria.imagem;
+      img.alt = 'Imagem de capa do card';
+
+      const cardBody = document.createElement('div');
+      cardBody.classList.add('card-body');
+
+      const title = document.createElement('h5');
+      title.classList.add('card-title');
+      title.textContent = categoria.nome;
+
+      const description = document.createElement('p');
+      description.classList.add('card-text');
+      const descricaoCompleta = categoria.descricao;
+      if (descricaoCompleta.length > 50) {
+        description.textContent = descricaoCompleta.substring(0, 50) + '...';
+      } else {
+        description.textContent = descricaoCompleta;
+      }
+
+      const link = document.createElement('a');
+      link.classList.add('btn', 'btn-primary', 'mt-4');
+      link.href = 'pages/Categoria.html?categoria=' + categoria.nome + '&id=' + categoria._id;
+      link.textContent = 'Ver mais';
+
+      cardBody.appendChild(title);
+      cardBody.appendChild(description);
+      cardBody.appendChild(link);
+
+      card.appendChild(img);
+      card.appendChild(cardBody);
+
+      slide.appendChild(card);
+
+      return slide;
+    }
+
+    function renderCategories() {
+      const cardsContainer = document.getElementById('cards-container');
+
+      axios.get('http://localhost:3000/api/category/')
+        .then(function (categorias) {
+          return categorias.data.forEach(categoria => {
+            const card = createCategoryCard(categoria);
+            cardsContainer.appendChild(card);
+          });
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+
+    window.addEventListener('load', renderCategories);
+
+    // Função para criar os cards de eventos
+    function createEvent(evento) {
+      const slide = document.createElement('div');
+      slide.classList.add('swiper-slide');
+
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.classList.add('card-custom');
+
+      const img = document.createElement('img');
+      img.classList.add('card-img-top');
+      img.src = "http://localhost:3000/uploads/" + evento.imagem;
+      img.alt = 'Imagem de capa do card';
+
+      const cardBody = document.createElement('div');
+      cardBody.classList.add('card-body');
+
+      const title = document.createElement('h5');
+      title.classList.add('card-title');
+      title.textContent = evento.titulo;
+
+      const description = document.createElement('p');
+      description.classList.add('card-text');
+      const descricaoCompleta = evento.descricao;
+      if (descricaoCompleta.length > 50) {
+        description.textContent = descricaoCompleta.substring(0, 50) + '...';
+      } else {
+        description.textContent = descricaoCompleta;
+      }
+
+      const link = document.createElement('a');
+      link.classList.add('btn', 'btn-primary', 'mt-4');
+      link.href = 'pages/Evento.html?id=' + evento._id;
+      link.textContent = 'Ver mais';
+
+      cardBody.appendChild(title);
+      cardBody.appendChild(description);
+      cardBody.appendChild(link);
+
+      card.appendChild(img);
+      card.appendChild(cardBody);
+
+      slide.appendChild(card);
+
+      return slide;
+    }
+
+    function renderEvents() {
+      const cardsEventContainer = document.getElementById('cardsEvent-container');
+
+      axios.get('http://localhost:3000/api/event/')
+        .then(function (events) {
+          return events.data.forEach(event => {
+            const card = createEvent(event);
+            cardsEventContainer.appendChild(card);
+          });
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+
+    window.addEventListener('load', renderEvents);
+
+    function autocomplete(inp, arr) {
+      /*the autocomplete function takes two arguments,
+      the text field element and an array of possible autocompleted values:*/
+      var currentFocus;
+      /*execute a function when someone writes in the text field:*/
+      inp.addEventListener("input", function (e) {
+        var a, b, i, val = this.value;
+        /*close any already open lists of autocompleted values*/
+        closeAllLists();
+        if (!val) { return false; }
+        currentFocus = -1;
+        /*create a DIV element that will contain the items (values):*/
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("class", "autocomplete-items");
+        /*append the DIV element as a child of the autocomplete container:*/
+        this.parentNode.appendChild(a);
+        /*for each item in the array...*/
+        for (i = 0; i < arr.length; i++) {
+          /*check if the item starts with the same letters as the text field value:*/
+          if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+            /*create a DIV element for each matching element:*/
+            b = document.createElement("DIV");
+            /*make the matching letters bold:*/
+            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+            b.innerHTML += arr[i].substr(val.length);
+            /*insert a input field that will hold the current array item's value:*/
+            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+            /*execute a function when someone clicks on the item value (DIV element):*/
+            b.addEventListener("click", function (e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+              closeAllLists();
+            });
+            a.appendChild(b);
+          }
+        }
+      });
+      /*execute a function presses a key on the keyboard:*/
+      inp.addEventListener("keydown", function (e) {
+        var x = document.getElementById(this.id + "autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) {
+          /*If the arrow DOWN key is pressed,
+          increase the currentFocus variable:*/
+          currentFocus++;
+          /*and and make the current item more visible:*/
+          addActive(x);
+        } else if (e.keyCode == 38) { //up
+          /*If the arrow UP key is pressed,
+          decrease the currentFocus variable:*/
+          currentFocus--;
+          /*and and make the current item more visible:*/
+          addActive(x);
+        } else if (e.keyCode == 13) {
+          /*If the ENTER key is pressed, prevent the form from being submitted,*/
+          e.preventDefault();
+          if (currentFocus > -1) {
+            /*and simulate a click on the "active" item:*/
+            if (x) x[currentFocus].click();
+          }
+        }
+      });
+      function addActive(x) {
+        /*a function to classify an item as "active":*/
+        if (!x) return false;
+        /*start by removing the "active" class on all items:*/
+        removeActive(x);
+        if (currentFocus >= x.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = (x.length - 1);
+        /*add class "autocomplete-active":*/
+        x[currentFocus].classList.add("autocomplete-active");
+      }
+      function removeActive(x) {
+        /*a function to remove the "active" class from all autocomplete items:*/
+        for (var i = 0; i < x.length; i++) {
+          x[i].classList.remove("autocomplete-active");
+        }
+      }
+      function closeAllLists(elmnt) {
+        /*close all autocomplete lists in the document,
+        except the one passed as an argument:*/
+        var x = document.getElementsByClassName("autocomplete-items");
+        for (var i = 0; i < x.length; i++) {
+          if (elmnt != x[i] && elmnt != inp) {
+            x[i].parentNode.removeChild(x[i]);
+          }
+        }
+      }
+      /*execute a function when someone clicks in the document:*/
+      document.addEventListener("click", function (e) {
+        closeAllLists(e.target);
+      });
+    }
+
+    async function getAutocomplete() {
+      axios.get('http://localhost:3000/api/event/autocomplete/')
+        .then(function (events) {
+
+          autocomplete(document.getElementById("myInput"), events.data);
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+
+    window.addEventListener('load', getAutocomplete);
   </script>
   <!-- Vendor JS Files -->
   <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

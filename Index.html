@@ -33,6 +33,60 @@
       height: 22rem;
       border-radius: 16px;
     }
+
+    /*the container must be positioned relative:*/
+    .autocomplete {
+      position: relative;
+      display: inline-block;
+    }
+
+    input {
+      border: 1px solid transparent;
+      background-color: #fff;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    input[type=text] {
+      background-color: #fff;
+      width: 100%;
+    }
+
+    input[type=submit] {
+      background-color: DodgerBlue;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .autocomplete-items {
+      position: absolute;
+      border: 1px solid #fff;
+      border-bottom: none;
+      border-top: none;
+      z-index: 99;
+      /*position the autocomplete items to be the same width as the container:*/
+      top: 100%;
+      left: 0;
+      right: 0;
+    }
+
+    .autocomplete-items div {
+      padding: 10px;
+      cursor: pointer;
+      background-color: #fff;
+      border-bottom: 1px solid #d4d4d4;
+    }
+
+    /*when hovering an item:*/
+    /* .autocomplete-items div:hover {
+      background-color: #e9e9e9;
+    } */
+
+    /*when navigating through the items using the arrow keys:*/
+    .autocomplete-active {
+      background-color: DodgerBlue !important;
+      color: #ffffff;
+    }
   </style>
   <script>
 
@@ -45,13 +99,19 @@
       <a href="/Index.html">
         <img src="assets/img/Logo.png" alt="Logo" width="120" class="d-inline-block align-text-top mx-5">
       </a>
-      <div class="search-bar-body">
-        <div class="search-bar-content">
-          <i class="fa fa-search mx-2" aria-hidden="true"></i>
-          <input type="text" name="search" autocomplete="off" value=""
-            placeholder="Pesquisar eventos, shows, teatros, cursos..." class="search-bar-input">
-        </div>
+      <div style="display: flex;">
+        <form autocomplete="off" action="/Search.html">
+          <div class="search-bar-body">
+            <div class="search-bar-content">
+              <button class="fa fa-search mx-2 autocomplete" type="submit"
+                style="flex-direction: row; background-color: #fff; border: #fff;" aria-hidden="true"></button>
+              <input type="text" id="myInput" name="Query" autocomplete="on" value=""
+                placeholder="Pesquisar eventos, shows, teatros, cursos..." class="search-bar-input">
+            </div>
+          </div>
+        </form>
       </div>
+
       <div class="collapse navbar-collapse mx-5" id="navbarNavDropdown">
         <ul class="navbar-nav ms-auto d-none d-lg-inline-flex">
           <li class="nav-item mx-2">
@@ -97,11 +157,7 @@
                   class="btn bg-white text-muted"> <span class="far fa-eye-slash"></span>
                 </button> </div>
             </div>
-            <div class="d-flex justify-content-between">
-              <div class="remember"> <label class="option text-muted"> lembre-me<input type="radio" name="radio"> <span
-                    class="checkmark"></span> </label> </div>
-              <div class="ml-auto"> <a href="#" class="text-decoration-none" id="forgot">Esqueceu a senha?</a> </div>
-            </div>
+
             <div class="text-center pt-3 text-muted">
               <button type="button" onclick="login()" class="btn btn-block text-center my-3">Entrar</button>
             </div>
@@ -180,12 +236,7 @@
                         class="far fa-eye-slash"></span>
                     </button> </div>
                 </div>
-                <div class="d-flex justify-content-between">
-                  <div class="remember"> <label class="option text-muted"> lembre-me<input type="radio" name="radio">
-                      <span class="checkmark"></span> </label> </div>
-                  <div class="ml-auto"> <a href="#" class="text-decoration-none" id="forgot">Esqueceu a senha?</a>
-                  </div>
-                </div>
+
                 <div class="text-center pt-3 text-muted">
                   <button type="button" onclick="loginProdutor()" class="btn btn-block text-center my-3">Entrar</button>
                 </div>
@@ -317,7 +368,22 @@
         </div>
         <div class="swiper-pagination"></div>
       </div>
+    </div>
+  </section>
 
+
+  <section id="filmes" class="filmes">
+    <div class="container">
+      <div class="section-title">
+        <h2>ADICIONADOS RECENTEMENTE</h2>
+        <!-- <p>Os mais procurados</p> -->
+      </div>
+
+      <div class="card-slider swiper">
+        <div id="cardsEvent-container" class="swiper-wrapper align-items-center">
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
     </div>
   </section>
 
@@ -339,14 +405,18 @@
 
   <script>
     function login() {
+      //pegar os valor da input com ID email e senha
       var email = document.getElementById('email').value;
       var senha = document.getElementById('senha').value;
 
+      //requisição
       axios.post('http://localhost:3000/api/auth/login', {
         email: email,
         senha: senha
       })
+        //apos a requisição dá certo, vamos setar os dados que vinheram na resposta da requisição
         .then(function (response) {
+          //guarda tudo no localStorage(Cache)
           localStorage.setItem('id', response.data._id);
           localStorage.setItem('nome', response.data.nome);
           localStorage.setItem('email', response.data.email);
@@ -355,20 +425,23 @@
           localStorage.setItem('imagem', response.data.imagem !== null ? 'http://localhost:3000/uploads/' + response.data.imagem : 'https://digimedia.web.ua.pt/wp-content/uploads/2017/05/default-user-image.png');
           localStorage.setItem('cpf_cnpj', response.data.cpf_cnpj);
           localStorage.setItem('telefone', response.data.telefone);
-
+          // redireciona para esse endereço
           window.location.href = "/pages/logged/Index.html"
         })
         .catch(function (error) {
           console.error(error);
+          // no caso de erro o sistema vai cair nesse catch 
           if (error.response.status === 404) {
+            // Caso o codigo do erro for 404(não encontrado) irei mudar a cor da borda da div em que a input está
             document.getElementById('emailInput').classList.add('input-field-error');
             document.getElementById('passwordInput').classList.remove('input-field-error');
+            // a função exibirAlertDialog vai habilitar uma caixa de mensagem para alertar que deu erro e apresentar a mensagem que o backend retornou
+            // a função espera um parametro que é a mensagem, nesse caso o caminho para achar a mensagem de erro é error.response.data.message
             exibirAlertDialog(error.response.data.message);
           } else if (error.response.status === 401) {
             exibirAlertDialog(error.response.data.message);
             document.getElementById('passwordInput').classList.add('input-field-error');
             document.getElementById('emailInput').classList.remove('input-field-error');
-
           } else {
             exibirAlertDialog(error.response.data.error);
           }
@@ -423,7 +496,6 @@
           nome: nome,
           email: email,
           senha: senha,
-          // AccessLevel: "646e9089daa015d12e6b3648"
         })
           .then(function (response) {
             localStorage.setItem('id', response.data._id);
@@ -518,11 +590,16 @@
 
       const description = document.createElement('p');
       description.classList.add('card-text');
-      description.textContent = categoria.descricao;
+      const descricaoCompleta = categoria.descricao;
+      if (descricaoCompleta.length > 50) {
+        description.textContent = descricaoCompleta.substring(0, 50) + '...';
+      } else {
+        description.textContent = descricaoCompleta;
+      }
 
       const link = document.createElement('a');
       link.classList.add('btn', 'btn-primary', 'mt-4');
-      link.href = 'pages/Categoria.html?categoria='+categoria.nome;
+      link.href = 'pages/Categoria.html?categoria=' + categoria.nome + '&id=' + categoria._id;
       link.textContent = 'Ver mais';
 
       cardBody.appendChild(title);
@@ -552,6 +629,70 @@
         });
     }
 
+
+    // Função para criar os cards de eventos
+    function createEvent(evento) {
+      const slide = document.createElement('div');
+      slide.classList.add('swiper-slide');
+
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.classList.add('card-custom');
+
+      const img = document.createElement('img');
+      img.classList.add('card-img-top');
+      img.src = "http://localhost:3000/uploads/" + evento.imagem;
+      img.alt = 'Imagem de capa do card';
+
+      const cardBody = document.createElement('div');
+      cardBody.classList.add('card-body');
+
+      const title = document.createElement('h5');
+      title.classList.add('card-title');
+      title.textContent = evento.titulo;
+
+      const description = document.createElement('p');
+      description.classList.add('card-text');
+      const descricaoCompleta = evento.descricao;
+      if (descricaoCompleta.length > 50) {
+        description.textContent = descricaoCompleta.substring(0, 50) + '...';
+      } else {
+        description.textContent = descricaoCompleta;
+      }
+
+      const link = document.createElement('a');
+      link.classList.add('btn', 'btn-primary', 'mt-4');
+      link.href = 'pages/Evento.html?id=' + evento._id;
+      link.textContent = 'Ver mais';
+
+      cardBody.appendChild(title);
+      cardBody.appendChild(description);
+      cardBody.appendChild(link);
+
+      card.appendChild(img);
+      card.appendChild(cardBody);
+
+      slide.appendChild(card);
+
+      return slide;
+    }
+
+    function renderEvents() {
+      const cardsEventContainer = document.getElementById('cardsEvent-container');
+
+      axios.get('http://localhost:3000/api/event/')
+        .then(function (events) {
+          return events.data.forEach(event => {
+            const card = createEvent(event);
+            cardsEventContainer.appendChild(card);
+          });
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+
+    window.addEventListener('load', renderEvents);
     window.addEventListener('load', renderCategories);
 
     var telefoneInput = document.getElementById('telefone-produtor-cadastro');
@@ -620,6 +761,118 @@
         modalAlert.className = 'alert alert-warning alert-dismissible fade';
       }, 5000);
     }
+
+
+    function autocomplete(inp, arr) {
+      /*the autocomplete function takes two arguments,
+      the text field element and an array of possible autocompleted values:*/
+      var currentFocus;
+      /*execute a function when someone writes in the text field:*/
+      inp.addEventListener("input", function (e) {
+        var a, b, i, val = this.value;
+        /*close any already open lists of autocompleted values*/
+        closeAllLists();
+        if (!val) { return false; }
+        currentFocus = -1;
+        /*create a DIV element that will contain the items (values):*/
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("class", "autocomplete-items");
+        /*append the DIV element as a child of the autocomplete container:*/
+        this.parentNode.appendChild(a);
+        /*for each item in the array...*/
+        for (i = 0; i < arr.length; i++) {
+          /*check if the item starts with the same letters as the text field value:*/
+          if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+            /*create a DIV element for each matching element:*/
+            b = document.createElement("DIV");
+            /*make the matching letters bold:*/
+            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+            b.innerHTML += arr[i].substr(val.length);
+            /*insert a input field that will hold the current array item's value:*/
+            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+            /*execute a function when someone clicks on the item value (DIV element):*/
+            b.addEventListener("click", function (e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+              closeAllLists();
+            });
+            a.appendChild(b);
+          }
+        }
+      });
+      /*execute a function presses a key on the keyboard:*/
+      inp.addEventListener("keydown", function (e) {
+        var x = document.getElementById(this.id + "autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) {
+          /*If the arrow DOWN key is pressed,
+          increase the currentFocus variable:*/
+          currentFocus++;
+          /*and and make the current item more visible:*/
+          addActive(x);
+        } else if (e.keyCode == 38) { //up
+          /*If the arrow UP key is pressed,
+          decrease the currentFocus variable:*/
+          currentFocus--;
+          /*and and make the current item more visible:*/
+          addActive(x);
+        } else if (e.keyCode == 13) {
+          /*If the ENTER key is pressed, prevent the form from being submitted,*/
+          e.preventDefault();
+          if (currentFocus > -1) {
+            /*and simulate a click on the "active" item:*/
+            if (x) x[currentFocus].click();
+          }
+        }
+      });
+      function addActive(x) {
+        /*a function to classify an item as "active":*/
+        if (!x) return false;
+        /*start by removing the "active" class on all items:*/
+        removeActive(x);
+        if (currentFocus >= x.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = (x.length - 1);
+        /*add class "autocomplete-active":*/
+        x[currentFocus].classList.add("autocomplete-active");
+      }
+      function removeActive(x) {
+        /*a function to remove the "active" class from all autocomplete items:*/
+        for (var i = 0; i < x.length; i++) {
+          x[i].classList.remove("autocomplete-active");
+        }
+      }
+      function closeAllLists(elmnt) {
+        /*close all autocomplete lists in the document,
+        except the one passed as an argument:*/
+        var x = document.getElementsByClassName("autocomplete-items");
+        for (var i = 0; i < x.length; i++) {
+          if (elmnt != x[i] && elmnt != inp) {
+            x[i].parentNode.removeChild(x[i]);
+          }
+        }
+      }
+      /*execute a function when someone clicks in the document:*/
+      document.addEventListener("click", function (e) {
+        closeAllLists(e.target);
+      });
+    }
+
+    async function getAutocomplete() {
+      axios.get('http://localhost:3000/api/event/autocomplete/')
+        .then(function (events) {
+
+          autocomplete(document.getElementById("myInput"), events.data);
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+
+    window.addEventListener('load', getAutocomplete);
+
   </script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>

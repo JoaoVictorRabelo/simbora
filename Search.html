@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simbora</title>
+  <link rel="shortcut icon" href="/assets/img/Logo.png" width="100%" height="100%" type="image/x-icon">
+
+  <link rel="stylesheet" href="/assets/css/index.css">
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="	https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+  <!-- Vendor CSS Files -->
+  <link href="/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <style>
+    .card-custom {
+      width: 19rem;
+      height: 22rem;
+      border-radius: 16px;
+    }
+
+    /*the container must be positioned relative:*/
+    .autocomplete {
+      position: relative;
+      display: inline-block;
+    }
+
+    input {
+      border: 1px solid transparent;
+      background-color: #fff;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    input[type=text] {
+      background-color: #fff;
+      width: 100%;
+    }
+
+    input[type=submit] {
+      background-color: DodgerBlue;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .autocomplete-items {
+      position: absolute;
+      border: 1px solid #fff;
+      border-bottom: none;
+      border-top: none;
+      z-index: 99;
+      /*position the autocomplete items to be the same width as the container:*/
+      top: 100%;
+      left: 0;
+      right: 0;
+    }
+
+    .autocomplete-items div {
+      padding: 10px;
+      cursor: pointer;
+      background-color: #fff;
+      border-bottom: 1px solid #d4d4d4;
+    }
+
+    /*when hovering an item:*/
+    /* .autocomplete-items div:hover {
+      background-color: #e9e9e9;
+    } */
+
+    /*when navigating through the items using the arrow keys:*/
+    .autocomplete-active {
+      background-color: DodgerBlue !important;
+      color: #ffffff;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    #content {
+      flex: 1;
+    }
+
+    #footer {
+      padding: 20px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #198754; height: 7rem;">
+    <div class="container-fluid">
+      <a href="Index.html">
+        <img src="/assets/img/Logo.png" alt="Logo" width="120" class="d-inline-block align-text-top mx-5">
+      </a>
+      <div style="display: flex;">
+        <form autocomplete="off" action="/action_page.php">
+          <div class="search-bar-body">
+            <div class="search-bar-content">
+              <button class="fa fa-search mx-2 autocomplete" type="submit"
+                style="flex-direction: row; background-color: #fff; border: #fff;" aria-hidden="true"></button>
+              <input type="text" id="myInput" name="Query" autocomplete="on" value=""
+                placeholder="Pesquisar eventos, shows, teatros, cursos..." class="search-bar-input">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="collapse navbar-collapse mx-5" id="navbarNavDropdown">
+        <ul class="navbar-nav ms-auto d-none d-lg-inline-flex">
+          <li class="nav-item mx-2">
+            <a href="#myModalProdutor" class="trigger-btn" data-toggle="modal">
+              <button class="btn text-uppercase" style="color: #FFF;">seja um produtor</button>
+            </a>
+          </li>
+          <li class="nav-item mx-2">
+            <a href="#myModal" class="trigger-btn" data-toggle="modal">
+              <button class="btn text-uppercase" style="color: #FFF;">Entrar</button>
+            </a>
+          </li>
+          <li class="nav-item mx-2">
+            <a href="#myModalCadastro" class="trigger-btn" data-toggle="modal">
+              <button type="button" class="btn text-uppercase" data-toggle="modal"
+                style="background-color: #FD7E14; color: #FFF;">Inscrever-se</button>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Fim da Navbar -->
+  <div id="content">
+    <!-- Modal Login -->
+    <div id="myModal" class="modal fade">
+      <div class="modal-dialog modal-login">
+        <div class="modal-content">
+          <div class="wrapper bg-white">
+            <div class="h2 text-center">Login</div>
+            <form class="pt-3">
+              <div class="form-group py-2">
+                <div class="input-field"> <span class="far fa-user p-2"></span> <input type="text"
+                    placeholder="Username ou Email" required class=""> </div>
+              </div>
+              <div class="form-group py-1 pb-2">
+                <div class="input-field"> <span class="fas fa-lock p-2"></span> <input type="text" placeholder="Senha"
+                    required class=""> <button class="btn bg-white text-muted"> <span class="far fa-eye-slash"></span>
+                  </button> </div>
+              </div>
+
+              <div class="text-center pt-3 text-muted">
+                <a href="/pages/logged/Index.html">
+                  <button type="button" class="btn btn-block text-center my-3">Entrar</button>
+                </a>
+              </div>
+              <div class="text-center pt-3 text-muted">Não tem conta? <a href="#myModalCadastro"
+                  class="trigger-btn text-decoration-none" data-toggle="modal"> Inscrever-se</a></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Cadastro -->
+    <div id="myModalCadastro" class="modal fade">
+      <div class="modal-dialog modal-login">
+        <div class="modal-content">
+          <div class="wrapper bg-white">
+            <div class="h2 text-center">Cadastro</div>
+            <form class="pt-3 text-center">
+              <div class="form-group py-2">
+                <div class="input-field"> <span class="far fa-user p-2"></span> <input type="text" placeholder="Nome"
+                    required class=""> </div>
+              </div>
+              <div class="form-group py-2">
+                <div class="input-field"> <span class="far fa-user p-2"></span> <input type="text"
+                    placeholder="Sobrenome" required class=""> </div>
+              </div>
+              <div class="form-group py-1 pb-2">
+                <div class="input-field"> <span class="far fa-envelope p-2"></span> <input type="text"
+                    placeholder="Email" required class=""> </div>
+              </div>
+              <div class="form-group py-1 pb-2">
+                <div class="input-field"> <span class="fas fa-lock p-2"></span> <input type="password"
+                    placeholder="Senha" required class=""> <button class="btn bg-white text-muted"> <span
+                      class="far fa-eye-slash"></span>
+                  </button> </div>
+              </div>
+              <div class="d-flex align-items-start">
+                <div class="remember">
+                  <label class="option text-muted"> Eu concordo com os termos e condições <input type="checkbox"
+                      name="checkbox"> <span class="checkmark"></span> </label>
+                </div>
+              </div>
+              <a href="/pages/logged/Index.html">
+                <button type="button" class="btn btn-block text-center my-3">Cadastrar</button>
+              </a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Produtor -->
+    <div id="myModalProdutor" class="modal fade">
+      <div class="modal-dialog modal-login">
+        <div class="modal-content">
+          <div class="wrapper bg-white">
+            <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link mx-2 active" id="pills-home-tab" data-bs-toggle="pill"
+                  data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                  aria-selected="true">Entrar</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link  mx-2" id="pills-profile-tab" data-bs-toggle="pill"
+                  data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+                  aria-selected="false">Inscrever-se</button>
+              </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+              <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <div class="h2 text-center">Login</div>
+                <form class="pt-3">
+                  <div class="form-group py-2">
+                    <div class="input-field"> <span class="far fa-user p-2"></span> <input type="text"
+                        placeholder="Username ou Email" required class=""> </div>
+                  </div>
+                  <div class="form-group py-1 pb-2">
+                    <div class="input-field"> <span class="fas fa-lock p-2"></span> <input type="text"
+                        placeholder="Senha" required class=""> <button class="btn bg-white text-muted"> <span
+                          class="far fa-eye-slash"></span>
+                      </button> </div>
+                  </div>
+
+                  <div class="text-center pt-3 text-muted">
+                    <a href="pages/produtor/HomeProdutor.html">
+                      <button type="button" class="btn btn-block text-center my-3">Entrar</button>
+                    </a>
+                  </div>
+                </form>
+              </div>
+              <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <div class="h2 text-center">Cadastro</div>
+                <form class="text-center" method="get">
+                  <!-- 2 coluna grid layout com textos de inputs para Nome e Sobrenome -->
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="form3Example1">Nome</label>
+                        <input type="text" id="form3Example1" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="form3Example2">Sobrenome</label>
+                        <input type="text" id="form3Example2" class="form-control" />
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Email input e CNPJ -->
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="form3Example1">Email</label>
+                        <input type="text" id="form3Example1" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="form3Example2">CNPJ</label>
+                        <input type="text" id="form3Example2" class="form-control" placeholder="00.000.000/0000-00" />
+                      </div>
+                    </div>
+                  </div>
+                  <!-- telefones -->
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="form3Example1">Telefone</label>
+                        <input type="text" id="form3Example1" class="form-control" placeholder="(99) 99999-9999" />
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="form3Example2">Telefone 2</label>
+                        <input type="text" id="form3Example2" class="form-control" placeholder="(99) 99999-9999" />
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Senha -->
+                  <div class="mb-4">
+                    <div class="form-outline">
+                      <label class="form-label" for="form3Example2">Senha</label>
+                      <input type="password" id="form3Example2" class="form-control" />
+                    </div>
+                  </div>
+                  <!-- Checkbox -->
+                  <div class="form-check d-flex justify-content-center mb-4">
+                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
+                    <label class="form-check-label" for="form2Example33">
+                      Concordo com os termos e condições
+                    </label>
+                  </div>
+                  <!-- button -->
+                  <a href="pages/produtor/HomeProdutor.html">
+                    <button type="button" class="btn btn-block text-center my-3">Cadastrar</button>
+                  </a>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container justify-content-center" id="content">
+      <h2 style="margin-top: 10rem;">Pesquisa</h2>
+      <div class="container">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4" id="cardsContainer">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <footer id="footer">
+    <div class="container justify-content-center">
+      <a href="/pages/logged/Index.html">
+        <img src="/assets/img/Logo.png" alt="Logo" width="120" class="d-inline-block align-text-top mx-5 my-2">
+      </a>
+      <div class="social-links">
+        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+      </div>
+      <div class="copyright"> Copyright <strong><span>Simbora</span></strong>. All Rights Reserved</div>
+    </div>
+  </footer>
+  <!-- End Footer -->
+
+  <script>
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const Query = urlParams.get('Query');
+
+    function renderCards(cardsData) {
+      const cardsContainer = document.getElementById('cardsContainer');
+      const cardsHtml = [];
+
+      cardsData.forEach((card) => {
+        const cardHtml = `<div class="col mb-4">
+                    <a href="pages/Evento.html?id=${card._id}" class="card-link" style="color:inherit; text-decoration: none;">
+            <div class="card" style="width: 19rem; border-radius: 12px;">
+                <img class="card-img-top" src="${"http://localhost:3000/uploads/" + card.imagem}"
+                    style="height: 10rem; border-top-right-radius: 12px; border-top-left-radius: 12px;"
+                    alt="Imagem de capa do card">
+                <div class="card-body">
+                    <h5 class="card-title">${card.titulo}</h5>
+                    <p class="card-text">${(card.descricao).substring(0, 50) + '...'}</p>
+                    <p class="card-text">${formatarData(card.data)}</p>
+                </div>
+            </div>
+            </a>
+        </div>`;
+        cardsHtml.push(cardHtml);
+      });
+
+      cardsContainer.innerHTML = cardsHtml.join('');
+    }
+
+    function getSearch() {
+      axios.get('http://localhost:3000/api/event/search/' + Query)
+        .then(function (evento) {
+          return renderCards(evento.data);
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+
+    window.addEventListener('load', getSearch);
+
+    function formatarData(data) {
+      const options = { day: 'numeric', month: 'long', year: 'numeric' };
+      const dataObj = new Date(data);
+      dataObj.setMinutes(dataObj.getMinutes() + dataObj.getTimezoneOffset());
+      return dataObj.toLocaleDateString('pt-BR', options);
+    }
+
+
+
+    function autocomplete(inp, arr) {
+      /*the autocomplete function takes two arguments,
+      the text field element and an array of possible autocompleted values:*/
+      var currentFocus;
+      /*execute a function when someone writes in the text field:*/
+      inp.addEventListener("input", function (e) {
+        var a, b, i, val = this.value;
+        /*close any already open lists of autocompleted values*/
+        closeAllLists();
+        if (!val) { return false; }
+        currentFocus = -1;
+        /*create a DIV element that will contain the items (values):*/
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("class", "autocomplete-items");
+        /*append the DIV element as a child of the autocomplete container:*/
+        this.parentNode.appendChild(a);
+        /*for each item in the array...*/
+        for (i = 0; i < arr.length; i++) {
+          /*check if the item starts with the same letters as the text field value:*/
+          if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+            /*create a DIV element for each matching element:*/
+            b = document.createElement("DIV");
+            /*make the matching letters bold:*/
+            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+            b.innerHTML += arr[i].substr(val.length);
+            /*insert a input field that will hold the current array item's value:*/
+            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+            /*execute a function when someone clicks on the item value (DIV element):*/
+            b.addEventListener("click", function (e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+              closeAllLists();
+            });
+            a.appendChild(b);
+          }
+        }
+      });
+      /*execute a function presses a key on the keyboard:*/
+      inp.addEventListener("keydown", function (e) {
+        var x = document.getElementById(this.id + "autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) {
+          /*If the arrow DOWN key is pressed,
+          increase the currentFocus variable:*/
+          currentFocus++;
+          /*and and make the current item more visible:*/
+          addActive(x);
+        } else if (e.keyCode == 38) { //up
+          /*If the arrow UP key is pressed,
+          decrease the currentFocus variable:*/
+          currentFocus--;
+          /*and and make the current item more visible:*/
+          addActive(x);
+        } else if (e.keyCode == 13) {
+          /*If the ENTER key is pressed, prevent the form from being submitted,*/
+          e.preventDefault();
+          if (currentFocus > -1) {
+            /*and simulate a click on the "active" item:*/
+            if (x) x[currentFocus].click();
+          }
+        }
+      });
+      function addActive(x) {
+        /*a function to classify an item as "active":*/
+        if (!x) return false;
+        /*start by removing the "active" class on all items:*/
+        removeActive(x);
+        if (currentFocus >= x.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = (x.length - 1);
+        /*add class "autocomplete-active":*/
+        x[currentFocus].classList.add("autocomplete-active");
+      }
+      function removeActive(x) {
+        /*a function to remove the "active" class from all autocomplete items:*/
+        for (var i = 0; i < x.length; i++) {
+          x[i].classList.remove("autocomplete-active");
+        }
+      }
+      function closeAllLists(elmnt) {
+        /*close all autocomplete lists in the document,
+        except the one passed as an argument:*/
+        var x = document.getElementsByClassName("autocomplete-items");
+        for (var i = 0; i < x.length; i++) {
+          if (elmnt != x[i] && elmnt != inp) {
+            x[i].parentNode.removeChild(x[i]);
+          }
+        }
+      }
+      /*execute a function when someone clicks in the document:*/
+      document.addEventListener("click", function (e) {
+        closeAllLists(e.target);
+      });
+    }
+
+    async function getAutocomplete() {
+      axios.get('http://localhost:3000/api/event/autocomplete/')
+        .then(function (events) {
+
+          autocomplete(document.getElementById("myInput"), events.data);
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+
+    window.addEventListener('load', getAutocomplete);
+  </script>
+  <!-- Vendor JS Files -->
+  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <script src="/assets/js/bootstrap.min.js"></script>
+  <script src="/assets/js/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+  <script src="/assets/js/main.js"></script>
+</body>
+
+</html>

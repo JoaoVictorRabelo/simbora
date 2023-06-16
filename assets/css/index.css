@@ -513,3 +513,7 @@ section {
 .custom-file-upload:hover {
   background: #0056b3;
 }
+
+.select2-container--open {
+  z-index: 9999999
+}
